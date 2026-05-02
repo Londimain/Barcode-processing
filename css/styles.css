@@ -1,0 +1,420 @@
+/* Дополнительные стили для таблиц */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+
+thead {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+th {
+  padding: 12px 8px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #e9ecef;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+tfoot {
+  background: #f8f9fa;
+  font-weight: 600;
+}
+
+/* Стили для карточек информации */
+.info-card {
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #e9ecef;
+}
+
+.info-card h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 6px;
+}
+
+/* Анимация загрузки */
+.loading {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  border-radius: 50%;
+  border-top-color: #667eea;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Тёмная тема (опционально) */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+    color: #ecf0f1;
+  }
+  .container, .left-section, .file-section, .info-card, table, .input-field, input[type="file"] {
+    background: #2c3e50;
+    border-color: #34495e;
+  }
+  label, .subtitle, h3, th, td, .status {
+    color: #7a00df;/* Цвет текста над полями */
+    padding: 2px 0px; /* Уменьшены отступы */
+  }
+  #dataInput, .input-field, input[type="file"] {
+    color: #ecf0f1;
+    border-color: #34495e;
+  }
+  hr {
+    background: linear-gradient(to right, transparent, #34495e, transparent);
+  }
+}
+
+/* Подсказки */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 180px;
+  background-color: #555;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  padding: 6px 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ОСНОВНЫЕ СТИЛИ — возвращены к исходным настройкам с уменьшенными отступами */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 15px; /* уменьшен отступ */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+.container {
+  max-width: 1370px;
+  margin: 0 auto;
+  background: rgba(228, 252, 174);
+  border-radius: 25px;
+  overflow: hidden;
+  border: 2px solid black;
+}
+
+        .rainbow-text {
+    font-family: 'Montserrat', cursive;
+    font-size: 2rem;
+    letter-spacing: 3px; /* зазор ... px между символами */
+    background: repeating-linear-gradient(
+        90deg,
+        red, orange 10%, yellow 20%,
+        green 30%, blue 40%, indigo 50%,
+        violet 60%, red 70%
+    );
+    background-size: 300% 300%;
+    -webkit-text-stroke: 0.6px rgb(255, 255, 255); /* толщина и цвет обводки */
+    
+    background-clip: text;
+    color: transparent;
+    animation: rainbowShift 5s linear infinite;
+    text-align: center;
+    margin: -10px 0;
+    padding: 2px 0px; /* уменьшены отступы */
+}
+
+@keyframes rainbowShift {
+    from { background-position: 100% center; } /* Начало: справа */
+    to { background-position: 0% center; }   /* Конец: слева */
+}
+
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 12px 15px; /* уменьшены отступы */
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.subtitle {
+  font-size: 32px;
+  opacity: 5.8;
+  margin-top: 0.5px;
+  font-weight: bold;
+  color: #d4edda;
+  height: 10px;
+}
+
+.main-content {
+  display: flex;
+  gap: 15px; /* уменьшен зазор */
+  padding: 15px; /* уменьшены отступы */
+}
+
+/* Левая секция — основной ввод данных */
+.left-section {
+  flex: 1;
+  min-width: 250px;
+  border: 2px solid black;
+  margin-top: 0px;
+  padding: 8px; /* уменьшены отступы */
+  background: #34ebe1;
+  border-radius: 10px;
+}
+
+#dataInput {
+  font-size: 18px;
+  color: rgb(255, 0, 0);
+  -webkit-text-stroke: 0.8px black;
+  width: 100%;
+  height: 350px; /* уменьшена высота */
+  resize: none;
+  border: 2px solid black;
+  padding: 8px; /* уменьшены отступы */
+  font-family: monospace;
+  border-radius: 5px;
+  letter-spacing: 1px;
+}
+
+.clear-button {
+  margin-top: 8px; /* уменьшен отступ */
+  padding: 8px 16px; /* уменьшены отступы */
+  background-color: #571d20;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+/* Правая секция — дополнительные поля */
+.right-inputs {
+  flex: 0;
+  min-width: 320px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px; /* уменьшен отступ
+  }
+
+label {
+  margin-bottom: 4px; /* уменьшен отступ */
+  font-weight: bold;
+  color: #555;
+}
+
+.input-field {
+  padding: 6px 8px; /* уменьшены отступы */
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+#sumLines, #sumCalculation, #productName {
+  background-color: #f0f0f0;
+  color: #555;
+  font-weight: bold;
+}
+
+button {
+  width: 100%;
+  padding: 10px 16px; /* уменьшены отступы */
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+  margin: 4px 0; /* уменьшен отступ */
+  border: 2px solid black;
+}
+
+button:hover {
+  background: #5a6fd8;
+}
+
+/* Секции для загрузки файлов */
+.file-section {
+  border: 2px solid black;
+  margin-top: 0px;
+  padding: 8px; /* уменьшены отступы */
+  background: #34ebe1;
+  flex: 1;
+  min-width: 420px;
+  border-radius: 10px;
+}
+
+.file-section h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 1px;
+}
+
+.file-input-group {
+  margin: 12px 0; /* уменьшен отступ */
+  border: 2px solid black;
+  border-radius: 7px;
+}
+
+input[type="file"] {
+  width: 100%;
+  padding: 8px; /* уменьшены отступы */
+  border-radius: 5px;
+  background: #7ebea1;
+}
+
+.status {
+  margin-top: 8px; /* уменьшен отступ */
+  text-align: center;
+  font-weight: bold;
+  padding: 6px 10px; /* уменьшены отступы */
+  margin: 4px 0; /* уменьшен отступ */
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #ccc, transparent);
+  margin: 4px 0; /* уменьшен отступ */
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+  .left-section, .right-inputs, .file-section {
+    min-width: 100%;
+  }
+  #dataInput {
+    height: 250px; /* уменьшена высота для мобильных */
+  }
+}
+
+/* Разделение файла по количеству кодов */
+.split-file-section {
+  margin-top: 15px; /* уменьшен отступ */
+  padding: 12px; /* уменьшены отступы */
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.file-info {
+  margin: 8px 0; /* уменьшен отступ */
+  padding: 6px 10px; /* уменьшены отступы */
+  background-color: #e7f3ff;
+  border-left: 4px solid #2196F3;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.split-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px; /* уменьшены отступы */
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.split-button:hover {
+  background-color: #45a049;
+}
+
+/* Видео фон — без изменений */
+.video-background {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1000;
+  overflow: hidden;
+}
+
+#bgVideo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .video-background { display: none; }
+  body { background: #000 url('images/fallback.jpg') no-repeat center center / cover; }
+}
