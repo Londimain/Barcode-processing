@@ -153,6 +153,9 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> -->
 <script>
 let productMap = []; // Словарь соответствия будет загружен из Excel или резервного источника
+let splitFileData = null; // Данные загруженного файла для разделения
+let originalFileName = ''; // Оригинальное имя файла для разделения
+let currentResult = ''; // Результат обработки двух файлов
 
 // Элементы DOM
 const textarea = document.getElementById('dataInput');
@@ -164,39 +167,44 @@ const bottlesPerPackageField = document.getElementById('bottlesPerPackage');
 const statusElement = document.getElementById('status');
 const statusTwoFilesElement = document.getElementById('statusTwoFiles');
 
-// Функция поиска названия по префиксу (улучшенная версия)
-function findProductName(input) {
-    if (!input || !productMap) return 'Не определено';
+/**
+ * Функция поиска названия продукта по префиксу
+ * @param {*} input — входные данные (префикс для поиска)
+ * @param {Array} productMap — словарь сопоставления префиксов и названий (опционально, если доступна глобальная переменная)
+ * @returns {string} — найденное название или 'Не определено'
+ */
+function findProductName(input, productMapOverride) {
+    // Используем переданный словарь или глобальную переменную
+    const mapToUse = productMapOverride || productMap;
 
-    const trimmedInput = String(input).trim();
-
-
-    for (const item of productMap) {
-        const prefix = String(item.prefix).trim();
-        if (trimmedInput.startsWith(prefix)) {
-            return item.name;
-        }
-    }
-    return 'Не определено';
-}
-
-function findProductName(input) {
-    if (!input || !productMap || productMap.length === 0) {
+    // Проверка входных данных и словаря
+    if (!input || !mapToUse || mapToUse.length === 0) {
         console.log('Словарь пуст или входные данные отсутствуют');
         return 'Не определено';
     }
 
     const trimmedInput = String(input).trim();
-    console.log('Ищем префикс в строке:', trimmedInput);
-    console.log('Словарь для поиска:', productMap);
 
-    for (const item of productMap) {
+    console.log('Ищем префикс в строке:', trimmedInput);
+    console.log('Словарь для поиска:', mapToUse);
+
+    // Поиск первого совпадения по префиксу
+    for (const item of mapToUse) {
+        // Проверяем наличие обязательных полей
+        if (!item || !item.prefix) {
+            console.warn('Пропущен элемент без поля prefix:', item);
+            continue;
+        }
+
         const prefix = String(item.prefix).trim();
+
+        // Если строка начинается с префикса — возвращаем название
         if (trimmedInput.startsWith(prefix)) {
             console.log('Найдено совпадение:', prefix, '->', item.name);
-            return item.name;
+            return item.name || 'Не определено'; // Защита от отсутствующего поля name
         }
     }
+
     console.log('Совпадений не найдено');
     return 'Не определено';
 }
@@ -274,7 +282,10 @@ async function loadProductMapFromExcel() {
     }
 }
 
-// Функция для обновления поля sumLinesField с информацией о сумме и партии
+/**
+ * Обновление поля sumLines с информацией о сумме и партии, с возможностью звукового оповещения
+ * @param {number} totalLines — общее количество строк
+ */
 function updateSumLinesWithParties(totalLines) {
     const unitsPerBatch = parseInt(document.getElementById('unitsPerBatch').value) || 300;
     const totalParties = Math.ceil(totalLines / unitsPerBatch);
@@ -334,13 +345,19 @@ function updateSumLinesWithParties(totalLines) {
 packagesCountField.addEventListener('input', updateCalculation);
 bottlesPerPackageField.addEventListener('input', updateCalculation);
 
+/**
+ * Пересчёт суммы товара на основе количества упаковок и бутылок в упаковке
+ */
 function updateCalculation() {
     const packagesCount = parseFloat(packagesCountField.value) || 0;
     const bottlesPerPackage = parseFloat(bottlesPerPackageField.value) || 0;
     sumCalculationField.value = packagesCount * bottlesPerPackage;
 }
 
-// ФУНКЦИЯ ОЧИСТКИ ВСЕХ ПОЛЕЙ
+
+/**
+ * Очистка всех полей ввода и сброс состояния приложения
+ */
 function clearAllFields() {
     // Очищаем левое текстовое поле
     textarea.value = '';
@@ -361,7 +378,10 @@ function clearAllFields() {
     console.log('✅ Отслеживание партий полностью сброшено. Следующие партии будут оповещаться с №1.');
 }
 
-// Функция сохранения данных в файл .txt
+
+/**
+ * Сохранение данных в файл .txt с обработкой строк
+ */
 function saveDataAsFile() {
     let data = textarea.value;
 
@@ -489,7 +509,9 @@ textarea.addEventListener('input', async function() {
     updateSumLinesWithParties(uniqueLines.size);
 });
 
-// Функция воспроизведения звукового оповещения
+/**
+ * Воспроизведение звукового оповещения
+ */
 function playNotificationSound() {
     const audio = document.getElementById('notificationSound');
 
@@ -1107,12 +1129,12 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const trimmedLine = line.trim();
                 if (trimmedLine) {
                     productName = findProductName(trimmedLine);
-            if (productName !== 'Не определено') {
-                break;
+                    if (productName !== 'Не определено') {
+                        break;
+                    }
+                }
             }
-        }
-    }
-    productNameField.value = productName;
+            productNameField.value = productName;
 
     // Получаем количество единиц в партии
     const unitsPerBatch = parseInt(document.getElementById('unitsPerBatch').value) || 300;
