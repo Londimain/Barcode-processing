@@ -40,6 +40,7 @@
             <div class="left-section">
                 <div class="input-group">
                     <button type="button" onclick="clearAllFields()" class="clear-button">Очистить все поля</button>
+                    <!-- class="clear-button" -->
                 </div>
                
                 <textarea id="dataInput" placeholder="Введите данные"></textarea>
@@ -118,7 +119,7 @@
 
     <div id="splitFileInfo" class="file-info"></div>
 
-    <button type="button" onclick="splitFile()" class="split-button">Разделить файл</button>
+    <button type="button" onclick="splitFile()" class="ripple">Разделить файл</button>
     <div id="splitStatus" class="status"></div>
 </div>
 <!-- Конец разделеня по кодам -------------------------------------------------------------->
@@ -149,8 +150,7 @@
             </div>
         </div>
     </div>
-    <script src="data/xlsx.full.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> -->
+
 <script>
 let productMap = []; // Словарь соответствия будет загружен из Excel или резервного источника
 let splitFileData = null; // Данные загруженного файла для разделения
@@ -508,36 +508,6 @@ textarea.addEventListener('input', async function() {
 
     updateSumLinesWithParties(uniqueLines.size);
 });
-
-/**
- * Воспроизведение звукового оповещения
- */
-function playNotificationSound() {
-    const audio = document.getElementById('notificationSound');
-
-    if (!audio) {
-        console.error('Аудиоэлемент с ID "notificationSound" не найден!');
-        return;
-    }
-
-    // Перематываем на начало
-    audio.currentTime = 0;
-
-    // Пытаемся воспроизвести
-    const playPromise = audio.play();
-
-    if (playPromise !== undefined) {
-        playPromise
-            .then(() => {
-                console.log('Звук успешно воспроизведён');
-            })
-            .catch(error => {
-                console.error('Ошибка воспроизведения звука:', error);
-                // Альтернативное уведомление, если звук заблокирован
-                alert('Новая партия добавлена! (звук заблокирован браузером)');
-            });
-    }
-}
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', async function() {
@@ -1181,13 +1151,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     updateSumLinesWithParties(uniqueLines.size);
 });
 
-
 // Обработчики событий для кнопок (если они есть на странице)
 document.getElementById('clearAllBtn')?.addEventListener('click', clearAllFields);
 document.getElementById('saveDataBtn')?.addEventListener('click', saveDataAsFile);
 document.getElementById('processFilesBtn')?.addEventListener('click', processFiles);
 document.getElementById('saveResultBtn')?.addEventListener('click', saveResult);
 document.getElementById('refreshMapBtn')?.addEventListener('click', refreshProductMap);
+
 </script>
+
+<!-- Подключение библиотеки SheetJS (xlsx.js) для работы с Excel -->
+<script src="js/xlsx.full.min.js"></script><!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> -->
+<!-- Эффект сжимания кнопки при клике
+Эффект сжимания кнопки при клике на кнопку очистить все поля -->
+<script src="js/button.js"></script>
+<!-- Воспроизведение звукового оповещения -->
+<script src="js/sound.js"></script>
 </body>
 </html>
