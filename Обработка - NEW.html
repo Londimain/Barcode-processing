@@ -1,18 +1,66 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- Задаёт кодировку символов UTF-8 для корректного отображения всех символов (кириллица, спецсимволы и т. д.) -->
     <meta charset="UTF-8">
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="noindex">
-    <meta name="yandex" content="index, nofollow">
+
+    <!-- Настраивает отображение страницы на мобильных устройствах: ширина равна ширине экрана устройства, начальный масштаб 100 % -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Указывает автора веб‑страницы -->
     <meta name="author" content="Ильенков Сергей Михайлович">
+
+    <!-- Краткое описание страницы для поисковых систем и соцсетей. Отображается в сниппете поисковой выдачи -->
+    <meta name="description" content="Комплексное добавление штрихкодов и их сохранение, различные обработки и звуковые оповещения">
+
+    <!-- Инструкции для поисковых роботов: разрешаем индексацию страницы и обход ссылок на ней -->
+    <meta name="robots" content="index, follow">
+
+    <!-- Заголовок страницы. Отображается во вкладке браузера и в поисковой выдаче -->
     <title>Комплексная обработка данных</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <link rel="icon" type="images/png" sizes="32x32" href="images/png/png-32x32.png">
-    <link rel="icon" type="images/png" sizes="16x16" href="images/png/png-16x16.png">
+
+    <!-- Фавиконки разных размеров для отображения во вкладках браузера, закладках и истории -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+
+    <!-- Иконка для добавления сайта на главный экран iOS‑устройств (180×180 px для Retina‑дисплеев) -->
+<!-- <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png"> -->
+
+    <!-- Векторная иконка для «закреплённых вкладок» в Safari (macOS). Цвет заливки задаётся атрибутом color -->
+<!-- Нужно добавить <link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5"> -->
+
+    <!-- Цвет фона плитки сайта в меню «Пуск» Windows (для IE11 и Edge) -->
     <meta name="msapplication-TileColor" content="#ffffff">
+
+    <!-- Цвет адресной строки в мобильных браузерах (Chrome на Android, Firefox) -->
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Заранее устанавливает соединение с доменом Google Fonts для ускорения загрузки шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Подключает веб‑шрифт Montserrat (жирное начертание, wght@700) из Google Fonts.
+         display=swap: текст сначала показывается системным шрифтом, затем заменяется на веб‑шрифт после загрузки -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Подключает внешний файл стилей CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Open Graph теги для корректного отображения страницы при публикации в соцсетях -->
+    <meta property="og:title" content="Комплексная обработка данных, добавление штрихкодов и их сохранение, а также звуковые оповещения">
+    <meta property="og:description" content="Комплексное добавление штрихкодов и их сохранение, различные обработки и звуковые оповещения">
+    <!-- Канонический URL страницы (раскомментировать и указать реальный адрес) -->
+    <!-- <meta property="og:url" content="https://example.com"> -->
+    <!-- Тип контента (website, article и т. д.) -->
+    <meta property="og:type" content="website">
+    <!-- Изображение для превью в соцсетях (рекомендуемый размер: 1200×630 px; раскомментировать и указать путь) -->
+    <!-- <meta property="og:image" content="https://example.com/images/og-image.jpg"> -->
+
+    <!-- Twitter Cards — аналогичны Open Graph, но оптимизированы для Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Комплексная обработка данных">
+    <meta name="twitter:description" content="Комплексное добавление штрихкодов и их сохранение, различные обработки и звуковые оповещения">
+    <!-- Изображение для карточки Twitter (раскомментировать и указать путь) -->
+    <!-- <meta name="twitter:image" content="https://example.com/images/twitter-image.jpg"> -->
 </head>
 <body>
 
@@ -80,7 +128,6 @@
                     <button type="button" onclick="clearAllFields()" class="clear-button">Очистить все поля</button>
                 </div>
                     
- 
                 <textarea id="dataInput" placeholder="Введите данные"></textarea>
             </div>
             <!-- Правая секция: дополнительные поля -->
@@ -264,79 +311,6 @@ function findProductName(input, productMapOverride) {
     return 'Не определено';
 }
 
-// Функция загрузки данных из Excel вручную
-async function loadProductMapFromExcel() {
-    // Очищаем словарь перед загрузкой
-    productMap = [];
-
-    const fileInput = document.getElementById('excelFileInput');
-    const file = fileInput.files[0];
-
-    if (!file) {
-        // Используем резервный словарь
-        productMap = [
-            { prefix: '0104810178006287', name: 'Берёза квас лайм 1.0' },
-            { prefix: '0104810178006188', name: 'Берёза квас лайм 1.5' },
-            { prefix: '0104810178006294', name: 'Берёза квас классик 1.0' },
-            { prefix: '0104810178007789', name: 'Берёза квас имбирь 1.0' },
-            { prefix: '0104810178005921', name: 'Подникольский квас 1.5' },
-            { prefix: '0194819008570004', name: 'Берёза квас имбирь 1.5 обычный' }
-        ];
-        console.log('Используется резервный словарь продуктов');
-        return;
-    }
-
-    try {
-        const arrayBuffer = await file.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-        const firstSheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[firstSheetName];
-
-        // Получаем все данные листа (включая заголовки)
-        const excelData = XLSX.utils.sheet_to_json(worksheet, {
-            header: 1,
-            defval: ''
-        });
-
-        console.log('Сырые данные из Excel:', excelData);
-
-        // Обрабатываем данные, начиная со второй строки (пропускаем заголовки)
-        productMap = excelData.slice(1).map(row => {
-            // Гарантируем, что берём только первые два столбца
-            const prefixCell = row[0];
-            const nameCell = row[1];
-
-            // Преобразуем в строку и очищаем от пробелов
-            let prefix = '';
-            if (prefixCell !== undefined && prefixCell !== null) {
-                prefix = String(prefixCell).trim();
-            }
-
-            let name = 'Не определено';
-            if (nameCell !== undefined && nameCell !== null) {
-                name = String(nameCell).trim();
-                if (!name) name = 'Не определено';
-            }
-
-            return { prefix, name };
-        }).filter(item => item.prefix && item.prefix.length > 0);
-
-        console.log('Обработанный словарь productMap:', productMap);
-        alert(`Словарь продуктов успешно загружен из файла! Найдено ${productMap.length} записей.`);
-    } catch (error) {
-        console.error('Ошибка при загрузке Excel-файла:', error);
-        alert('Ошибка при загрузке файла. Используется резервный словарь.');
-        productMap = [
-            { prefix: '0104810178006287', name: 'Берёза квас лайм 1.0' },
-            { prefix: '0104810178006188', name: 'Берёза квас лайм 1.5' },
-            { prefix: '0104810178006294', name: 'Берёза квас классик 1.0' },
-            { prefix: '0104810178007789', name: 'Берёза квас имбирь 1.0' },
-            { prefix: '0104810178005921', name: 'Подникольский квас 1.5' },
-            { prefix: '0194819008570004', name: 'Берёза квас имбирь 1.5 обычный' }
-        ];
-    }
-}
-
 
 
 
@@ -344,53 +318,18 @@ async function loadProductMapFromExcel() {
 packagesCountField.addEventListener('input', updateCalculation);
 bottlesPerPackageField.addEventListener('input', updateCalculation);
 
-/**
- * Пересчёт суммы товара на основе количества упаковок и бутылок в упаковке
- */
+// Функция пересчёта суммы товара на основе количества упаковок и бутылок в упаковке
 function updateCalculation() {
     const packagesCount = parseFloat(packagesCountField.value) || 0;
     const bottlesPerPackage = parseFloat(bottlesPerPackageField.value) || 0;
     sumCalculationField.value = packagesCount * bottlesPerPackage;
 }
 
-// Очищаем левое текстовое поле
-function clearLeftFields() {
-    textarea.value = '';
-
-    // Звуковое оповещение
-    playNotificationSound('clear_left');
-}
-/**
- * Очистка всех полей ввода и сброс состояния приложения
- */
-function clearAllFields() {
-    // Очищаем левое текстовое поле
-    textarea.value = '';
-    // Очищаем все правые поля ввода
-    sumLinesField.value = '';
-    sumCalculationField.value = '';
-    productNameField.value = '';
-    packagesCountField.value = '';
-    bottlesPerPackageField.value = '';
-    document.getElementById('unitsPerBatch').value = '120'; // Сброс до значения по умолчанию
-
-    // ГАРАНТИРОВАННЫЙ СБРОС отслеживания партий и флагов
-    sessionStorage.removeItem('lastPartyNumber');
-    sessionStorage.removeItem('wasZeroParties');
-    sessionStorage.setItem('lastPartyNumber', '0');
-    sessionStorage.setItem('wasZeroParties', 'true'); // Явно указываем, что было нулевое состояние
-
-    // Звуковое оповещение
-    playNotificationSound('clear_all');
-
-    console.log('✅ Отслеживание партий полностью сброшено. Следующие партии будут оповещаться с №1.');
-}
 
 
 /**
  * Сохранение данных в файл .txt с обработкой строк
  */
-
 
 // Обработчик ввода в текстовом поле
 textarea.addEventListener('input', async function() {
@@ -454,12 +393,6 @@ textarea.addEventListener('input', async function() {
 
     updateSumLinesWithParties(uniqueLines.size);
 });
-
-
-
-
-
-
 
 
 
@@ -530,7 +463,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 
 
-  // === РАЗДЕЛЕНИЕ ФАЙЛА ПО КОЛИЧЕСТВУ КОДОВ ===
+  // Разделение файла по количеству кодов
   document.getElementById('splitFileInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
 
@@ -596,116 +529,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Функция разделения файла
-function splitFile() {
-    // Проверяем, загружен ли файл
-    if (!splitFileData) {
-        showSplitStatus('Пожалуйста, выберите файл для разделения.', 'error');
-        return;
-    }
-
-    // Получаем количество кодов в одном файле
-    const codesPerFile = parseInt(document.getElementById('codesPerFile').value);
-    if (isNaN(codesPerFile) || codesPerFile < 1) {
-        showSplitStatus('Введите корректное количество кодов (больше 0).', 'error');
-        return;
-    }
-
-    // Удаляем пустые строки из данных
-    const nonEmptyLines = splitFileData.filter(line => line.trim().length > 0);
-
-    const totalLines = nonEmptyLines.length;
-    const totalFiles = Math.ceil(totalLines / codesPerFile);
-
-    // Обновляем информацию о файле в интерфейсе
-    splitFileInfo.innerHTML = `
-        <strong>Файл загружен:</strong> ${originalFileName}<br>
-        <strong>Всего строк:</strong> ${totalLines}
-    `;
-
-    // Показываем процесс разделения
-    showSplitStatus(`Начинаем разделение на ${totalFiles} файлов...`, 'info');
-
-    let currentFileIndex = 1;
-
-    // Разделяем данные на части и создаём файлы
-    for (let i = 0; i < totalLines; i += codesPerFile) {
-        // Берём часть данных: от i до i + codesPerFile (или до конца массива)
-        const chunk = nonEmptyLines.slice(i, i + codesPerFile);
-
-        // Обрабатываем каждую строку в чанке: добавляем  после 31-го символа, если его нет
-        const processedChunk = chunk.map(line => {
-            // Пропускаем обработку, если строка короче 31 символа
-            if (line.length <= 31) {
-                return line;
-            }
-
-            // Проверяем, есть ли уже  на 32‑й позиции (индекс 31)
-            if (line[31] === '') {
-                // Если символ уже есть, возвращаем строку без изменений
-                return line;
-            }
-
-            // Вставляем  после 31‑го символа (индекс 31)
-            return line.slice(0, 31) + '' + line.slice(31);
-        });
-
-        // Создаём Blob для скачивания
-        const blob = new Blob([processedChunk.join('\r\n') + '\r\n'], {
-            type: 'text/plain;charset=utf-8'
-        });
-
-        // Формируем имя файла: folderName/part_1_of_6.txt, folderName/part_2_of_6.txt и т. д.
-        const fileName = `${originalFileName.replace(/\.[^.]+$/, '')}/part_${currentFileIndex}_of_${totalFiles}.txt`;
-
-        // Создаём ссылку для скачивания
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-
-        currentFileIndex++;
-    }
-
-    // Звуковое оповещение
-    playNotificationSound('split');
-
-
-    // Показываем итоговое оповещение об успешном выполнении
-    showSplitStatus('Файл успешно разделён');
-}
-
-
-
-
 
 
 
@@ -845,95 +668,6 @@ function saveToFile(content, fileName) {
 
 
 
-
-
-
-// === ОБРАБОТКА ДВУХ ФАЙЛОВ ===
-
-function processFiles() {
-    const file1 = document.getElementById('file1').files[0];
-    const file2 = document.getElementById('file2').files[0];
-
-    if (file1 && file2) {
-        originalFileName1 = file1.name;
-        originalFileName2 = file2.name;
-
-        const reader1 = new FileReader();
-        reader1.onload = function() {
-            const text1 = reader1.result;
-            const lines1 = text1.split('\n').map(line => line.trim());
-
-            const reader2 = new FileReader();
-            reader2.onload = function() {
-                const text2 = reader2.result;
-                const lines2 = text2.split('\n').map(line => line.trim());
-
-                // Шаг 1: Удаление символа  из всех строк в обоих файлах
-                const cleanLines1 = lines1.map(line => line.replace(//g, ''));
-                const cleanLines2 = lines2.map(line => line.replace(//g, ''));
-
-                // Шаг 2: Разбиение строк длиннее 38 символов на части
-                const splitLines1 = splitLongLines(cleanLines1);
-                const splitLines2 = splitLongLines(cleanLines2);
-
-                // Шаг 3: Удаление пустых строк
-                const nonEmptyLines1 = splitLines1.filter(line => line !== '');
-                const nonEmptyLines2 = splitLines2.filter(line => line !== '');
-
-                // Шаг 4: Удаление дубликатов внутри каждого файла
-                const uniqueLines1 = [...new Set(nonEmptyLines1)];
-                const uniqueLines2 = [...new Set(nonEmptyLines2)];
-
-                // Уникальная логика: удаление строк из первого файла, которые есть во втором
-                const finalUniqueLines = new Set(uniqueLines1);
-                const deletedLines = [];
-
-                uniqueLines1.forEach(line => {
-                    if (uniqueLines2.includes(line)) {
-                        finalUniqueLines.delete(line);
-                        deletedLines.push(line);
-                    }
-                });
-
-                // Шаг 5: Добавление символа  после 31-го символа
-                const processedLines = Array.from(finalUniqueLines).map(line => {
-                    if (line.length <= 31) {
-                        return line;
-                    }
-
-                    if (line[31] === '') {
-                        return line;
-                    }
-
-                    return line.slice(0, 31) + '' + line.slice(31);
-                });
-
-                // Финальная сборка результата
-                currentResult = processedLines.join('\r\n') + '\r\n';
-
-                // Показываем количество удалённых строк
-                statusTwoFilesElement.textContent = `Обработано: удалено ${deletedLines.length} строк.`;
-                statusTwoFilesElement.className = 'status success';
-
-                // Звуковое оповещение
-                playNotificationSound('process');
-
-
-                setTimeout(() => {
-                    statusTwoFilesElement.textContent = '';
-                    statusTwoFilesElement.className = 'status';
-                }, 5000);
-            };
-
-            reader2.readAsText(file2);
-        };
-
-        reader1.readAsText(file1);
-    } else {
-        alert('Пожалуйста, выберите оба файла.');
-    }
-}
-
 // Вспомогательная функция для разбиения длинных строк
 function splitLongLines(lines) {
     const result = [];
@@ -949,166 +683,6 @@ function splitLongLines(lines) {
     }
     return result;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Сохранение результата для двух файлов (с ENTER в последней строке)
-function saveResult() {
-    if (!currentResult) {
-        alert('Сначала обработайте файлы.');
-        return;
-    }
-
-    // Создаём имя файла на основе имён исходных файлов
-    let fileName = 'result_';
-    if (originalFileName1 && originalFileName2) {
-        // Берём имена без расширений и объединяем
-        const name1 = originalFileName1.replace(/\.[^.]+$/, '');
-        const name2 = originalFileName2.replace(/\.[^.]+$/, '');
-        fileName += `${name1}_${name2}`;
-    } else {
-        fileName += 'merged';
-    }
-    fileName += '.txt';
-
-    // Создаём Blob с добавлением \r\n в конце файла (ENTER в последней строке)
-    const blob = new Blob([currentResult], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-
-    // Добавляем ссылку в документ, имитируем клик и удаляем ссылку
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    //Звуковое оповещение
-    playNotificationSound('download');
-
-    // Освобождаем память
-    URL.revokeObjectURL(url);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function saveDataAsFile() {
-  // Получаем элементы регионов
-  const regionRB = document.getElementById('regionRB');
-  const regionRF = document.getElementById('regionRF');
-
-  // Определяем суффикс региона (только если выбран какой‑то регион)
-  let regionSuffix = '';
-  if (regionRB.checked) {
-    regionSuffix = ' РБ';
-  } else if (regionRF.checked) {
-    regionSuffix = ' РФ';
-  }
-
-  let data = textarea.value;
-
-  if (!data) {
-    alert('Поле для сохранения пустое!');
-    return;
-  }
-
-  // Получаем название продукта из соответствующего поля
-  const productName = productNameField.value.trim();
-
-  // Проверяем, заполнено ли поле названия продукта
-  if (!productName || productName === 'Не определено') {
-    alert('Не удалось определить название продукта. Проверьте данные в поле "Название продукта"');
-    return;
-  }
-
-  // Разделяем на строки, удаляем пустые и строки с пробелами
-  const lines = data.split('\n');
-  const nonEmptyLines = lines.filter(line => line.trim().length > 0);
-  const totalLines = nonEmptyLines.length;
-
-  if (totalLines === 0) {
-    alert('Нет данных для сохранения — все строки пустые!');
-    return;
-  }
-
-  // Обрабатываем каждую строку: вставляем символ  после 31‑го символа только если его там ещё нет
-  const processedLines = nonEmptyLines.map(line => {
-    // Пропускаем обработку, если строка короче 31 символа
-    if (line.length <= 31) {
-      return line;
-    }
-
-    // Проверяем, есть ли уже  на 32‑й позиции (индекс 31)
-    if (line[31] === '') {
-      // Если символ уже есть, возвращаем строку без изменений
-      return line;
-    }
-
-    // Вставляем  после 31‑го символа
-    return line.slice(0, 31) + '' + line.slice(31);
-  });
-
-  // Собираем строки обратно с CRLF
-  data = processedLines.join('\r\n') + '\r\n';
-
-  // Преобразуем строку в Uint8Array для гарантированной корректной кодировки
-  const uint8Array = new Uint8Array(data.length);
-  for (let i = 0; i < data.length; i++) {
-    uint8Array[i] = data.charCodeAt(i);
-  }
-
-  // Создаём Blob с данными, явно указывая кодировку
-  const blob = new Blob([uint8Array], { type: 'text/plain;charset=utf-8' });
-
-  // Формируем имя файла: "Название (количество) Регион.txt" (регион добавится только если выбран)
-  const fileName = `${productName} (${totalLines})${regionSuffix}.txt`;
-
-  // Создаём ссылку для скачивания
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = fileName;
-
-  // Добавляем ссылку в документ, имитируем клик и удаляем ссылку
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-
-  // Звуковое оповещение
-  playNotificationSound('save');
-
-  // Освобождаем память
-  URL.revokeObjectURL(link.href);
-}
-
-
-
-
-
 
 
 
@@ -1185,6 +759,10 @@ function updateSumLinesWithParties(totalLines) {
         playNotificationSound('party');
     }
 }
+
+
+
+
 
 // Обработчики для полей ввода чисел
 packagesCountField.addEventListener('input', updateCalculation);
@@ -1301,11 +879,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 
 
-
-
-
-
-
 // Обработчики событий для кнопок (если они есть на странице)
 document.getElementById('clearAllBtn')?.addEventListener('click', clearLeftFields);
 document.getElementById('clearAllBtn')?.addEventListener('click', clearAllFields);
@@ -1318,10 +891,24 @@ document.getElementById('refreshMapBtn')?.addEventListener('click', refreshProdu
 
 <!-- Подключение библиотеки SheetJS (xlsx.js) для работы с Excel -->
 <script src="js/xlsx.full.min.js"></script><!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> -->
-<!-- Эффект сжимания кнопки при клике
-Эффект сжимания кнопки при клике на кнопку очистить все поля -->
+<!-- Функция для загрузки данных из Excel вручную -->
+<script src="js/loadProductMapFromExcel.js"></script>
+<!-- Эффект сжимания кнопки при клике на кнопку очистить все поля -->
 <script src="js/button.js"></script>
 <!-- Воспроизведение звукового оповещения -->
 <script src="js/sound.js"></script>
+<!-- Функция разделения файла -->
+<script src="js/splitFile.js"></script>
+<!-- Функция для обработки двух файлов -->
+<script src="js/processFiles.js"></script>
+<!--  Функция сохранения результата для двух файлов (с ENTER в последней строке) -->
+<script src="js/saveResult.js"></script>
+<!-- Функция для сохранения результата -->
+<script src="js/saveDataAsFile.js"></script>
+<!-- Функция для очистки левого текстового поля -->
+<script src="js/clearLeftFields.js"></script>
+<!-- Функция для очистки всех полей ввода и сброс состояния -->
+<script src="js/clearAllFields.js"></script>
+
 </body>
 </html>
