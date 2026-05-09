@@ -23,10 +23,47 @@
         </video>
     </div>-->
 
-<audio id="notificationSound" preload="auto">
+<!-- Существующий звук для партий -->
+<audio id="party" preload="auto">
     <source src="sounds/newpartia.mp3" type="audio/mpeg">
     <source src="sounds/newpartia.ogg" type="audio/ogg">
     Ваш браузер не поддерживает аудиоэлементы.
+</audio>
+
+<!-- Звук для сохранения файла (saveDataAsFile) -->
+<audio id="saveSound" preload="auto">
+    <source src="sounds/save.mp3" type="audio/mpeg">
+    <source src="sounds/save.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для разделения файла (splitFile) -->
+<audio id="splitSound" preload="auto">
+    <source src="sounds/split.mp3" type="audio/mpeg">
+    <source src="sounds/split.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для обработки данных (processFiles) -->
+<audio id="processSound" preload="auto">
+    <source src="sounds/process.mp3" type="audio/mpeg">
+    <source src="sounds/process.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для обработки данных и авторохранение (advancedFileInput.addEventListener('change', function(event)) -->
+<audio id="processSaveSound" preload="auto">
+    <source src="sounds/split_save.mp3" type="audio/mpeg">
+    <source src="sounds/split_save.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для скачивания результата (saveResult) -->
+<audio id="downloadSound" preload="auto">
+    <source src="sounds/download.mp3" type="audio/mpeg">
+    <source src="sounds/download.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для очистки левого поля (clearLeftFields) -->
+<audio id="clearLeftSound" preload="auto">
+    <source src="sounds/clear_left.mp3" type="audio/mpeg">
+    <source src="sounds/clear_left.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для очистки всех полей (clearAllFields) -->
+<audio id="clearAllSound" preload="auto">
+    <source src="sounds/clear_all.mp3" type="audio/mpeg">
+    <source src="sounds/clear_all.ogg" type="audio/ogg">
 </audio>
 
     <div class="container">
@@ -38,68 +75,83 @@
         <div class="main-content">
             <!-- Левая секция: основной ввод данных -->
             <div class="left-section">
-                <div class="input-group">
+                <div class="clear-buttons">
+                    <button type="button" onclick="clearLeftFields()" class="clear-button">Очистить поле данных</button>
                     <button type="button" onclick="clearAllFields()" class="clear-button">Очистить все поля</button>
-                    <!-- class="clear-button" -->
                 </div>
-               
+                    
+ 
                 <textarea id="dataInput" placeholder="Введите данные"></textarea>
             </div>
             <!-- Правая секция: дополнительные поля -->
             <div class="right-inputs">
     <!-- Поле 1: Название продукта GTIN -->
     <div class="input-group">
-        <label for="productName">Название продукта GTIN:</label>
+        <label for="productName">Название продукта GTIN</label>
         <input type="text" id="productName" class="input-field" readonly placeholder="Автоматически заполняется">
     </div>
 
 <!--  Поле: Загрузка Excel-файла вручную -->
 <div class="input-group">
-    <label for="excelFileInput">Загрузите словарь продуктов (Excel):</label>
+    <label for="excelFileInput">Загрузите словарь продуктов (Excel)</label>
     <input type="file" id="excelFileInput" accept=".xlsx, .xls" class="input-field">
     <!--  <small>Выберите файл с данными о продуктах (формат .xlsx или .xls)</small> -->
 </div> 
 
     <!-- Поле 2: Количество отсканированного товара -->
     <div class="input-group">
-        <label for="sumLines">Количество отсканированного товара:</label>
+        <label for="sumLines">Количество отсканированного товара</label>
         <input type="text" id="sumLines" class="input-field" readonly>
     </div>
 
                 <!-- Поле 3: Сумма нужного товара -->
                 <div class="input-group">
-                    <label for="sumCalculation">Сумма нужного товара:</label>
+                    <label for="sumCalculation">Сумма нужного товара</label>
                     <input type="text" id="sumCalculation" class="input-field" readonly>
                 </div>
 
                 <!-- Поле 4: Количество упаковок -->
                 <div class="input-group">
-                    <label for="packagesCount">Количество упаковок:</label>
+                    <label for="packagesCount">Количество упаковок</label>
                     <input type="number" id="packagesCount" class="input-field" placeholder="Введите число">
                 </div>
 
                 <!-- Поле 5: Количество бутылок в упаковке -->
                 <div class="input-group">
-                    <label for="bottlesPerPackage">Количество товара в упаковке:</label>
+                    <label for="bottlesPerPackage">Количество товара в упаковке</label>
                     <input type="number" id="bottlesPerPackage" class="input-field" placeholder="Введите число">
                 </div>
 
                 <!-- Поле 7: Количество единиц в партии -->
                 <div class="input-group">
-                    <label for="unitsPerBatch">Количество товара в партии:</label>
-                    <input type="number" id="unitsPerBatch" class="input-field" placeholder="300" value="300">
+                    <label for="unitsPerBatch">Количество товара в партии</label>
+                    <input type="number" id="unitsPerBatch" class="input-field" placeholder="120" value="120">
                 </div>
 
                 <!-- Поле: Включить звуковое оповещение при новой партии -->
                 <div class="input-group">
                     <label>
                         <input type="checkbox" id="soundNotification" class="checkbox">
-                        Включить звуковое оповещение.
+                        Включить звуковое оповещение
                     </label>
                 </div>
-
+                <div class="split-file-section">
+                <p class="custom-font">Страна для реализации товара</p>
+                                <!-- Поле: Выбор региона для имени файла -->
+<div class="input-group region-checkboxes">
+    <label>
+        <input type="checkbox" id="regionRB" class="checkbox" name="region" value="РБ">
+        РБ
+    </label>
+    <label>
+        <input type="checkbox" id="regionRF" class="checkbox" name="region" value="РФ">
+        РФ
+    </label>
+</div>
+                </div>
                 <!-- Кнопка сохранения -->
                 <button type="button" onclick="saveDataAsFile()">Сохранить</button>
+
             </div>
 
             <!-- Секция загрузки файлов -->
@@ -113,13 +165,13 @@
     </div>
 
     <div class="input-group">
-        <label for="codesPerFile">Количество кодов в одном файле:</label>
+        <label for="codesPerFile">Количество кодов в одном файле</label>
         <input type="number" id="codesPerFile" class="input-field" placeholder="Введите число" min="1" value="100">
     </div>
 
     <div id="splitFileInfo" class="file-info"></div>
 
-    <button type="button" onclick="splitFile()" class="ripple">Разделить файл</button>
+    <button type="button" onclick="splitFile()">Разделить файл</button>
     <div id="splitStatus" class="status"></div>
 </div>
 <!-- Конец разделеня по кодам -------------------------------------------------------------->
@@ -143,9 +195,12 @@
                     <!-- <label for="file2">Файл 2:</label> -->
                     <input type="file" id="file2" name="file2" accept=".txt">
                 </div>
+                
+                <div class="button-group">
+                    <button type="button" onclick="processFiles()">Обработать данные</button>
+                    <button type="button" onclick="saveResult()">Скачать результат</button>
+                </div>
 
-                <button type="button" onclick="processFiles()">Обработать данные</button>
-                <button type="button" onclick="saveResult()">Скачать результат</button>
                 <div id="statusTwoFiles" class="status"></div>
             </div>
         </div>
@@ -282,64 +337,8 @@ async function loadProductMapFromExcel() {
     }
 }
 
-/**
- * Обновление поля sumLines с информацией о сумме и партии, с возможностью звукового оповещения
- * @param {number} totalLines — общее количество строк
- */
-function updateSumLinesWithParties(totalLines) {
-    const unitsPerBatch = parseInt(document.getElementById('unitsPerBatch').value) || 300;
-    const totalParties = Math.ceil(totalLines / unitsPerBatch);
-    let displayText = '';
 
-    if (totalLines === 0) {
-        displayText = 'Товара: нет; партий: нет';
-    } else {
-        displayText = `RQ Code: ${totalLines}; Партия №${totalParties}`;
-    }
 
-    sumLinesField.value = displayText;
-
-    // Получаем состояние чекбокса
-    const soundCheckbox = document.getElementById('soundNotification');
-    const isSoundEnabled = soundCheckbox && soundCheckbox.checked;
-
-    if (!isSoundEnabled) return; // Если звук отключён, выходим
-
-    // ПОЛУЧАЕМ ПРЕДЫДУЩЕЕ ЗНАЧЕНИЕ ПАРТИИ
-    let previousParties = 0;
-    const storedValue = sessionStorage.getItem('lastPartyNumber');
-
-    if (storedValue !== null) {
-        previousParties = parseInt(storedValue);
-    }
-
-    // ФЛАГ для определения необходимости оповещения
-    let shouldNotify = false;
-
-    // УСЛОВИЕ 1: Переход от «нет партий» (0) к любой положительной партии
-    if (previousParties === 0 && totalParties > 0) {
-        shouldNotify = true;
-        console.log(`🔔 Первая партия после сброса! Текущая: ${totalParties}`);
-    }
-    // УСЛОВИЕ 2: Увеличение количества партий
-    else if (totalParties > previousParties) {
-        shouldNotify = true;
-        console.log(`🔔 Новая партия! Текущая: ${totalParties}, Предыдущая: ${previousParties}`);
-    }
-    // УСЛОВИЕ 3: Уменьшение количества партий (например, при изменении unitsPerBatch)
-    else if (totalParties < previousParties && totalParties > 0) {
-        shouldNotify = true;
-        console.log(`🔔 Изменение партии! Текущая: ${totalParties}, Предыдущая: ${previousParties} (уменьшение)`);
-    }
-
-    // Воспроизводим звук, если нужно оповестить
-    if (shouldNotify) {
-        // Сохраняем новое значение
-        sessionStorage.setItem('lastPartyNumber', totalParties.toString());
-        // Воспроизводим звук
-        playNotificationSound();
-    }
-}
 
 // Обработчики для полей ввода чисел
 packagesCountField.addEventListener('input', updateCalculation);
@@ -354,7 +353,13 @@ function updateCalculation() {
     sumCalculationField.value = packagesCount * bottlesPerPackage;
 }
 
+// Очищаем левое текстовое поле
+function clearLeftFields() {
+    textarea.value = '';
 
+    // Звуковое оповещение
+    playNotificationSound('clear_left');
+}
 /**
  * Очистка всех полей ввода и сброс состояния приложения
  */
@@ -367,13 +372,16 @@ function clearAllFields() {
     productNameField.value = '';
     packagesCountField.value = '';
     bottlesPerPackageField.value = '';
-    document.getElementById('unitsPerBatch').value = '300'; // Сброс до значения по умолчанию
+    document.getElementById('unitsPerBatch').value = '120'; // Сброс до значения по умолчанию
 
     // ГАРАНТИРОВАННЫЙ СБРОС отслеживания партий и флагов
     sessionStorage.removeItem('lastPartyNumber');
     sessionStorage.removeItem('wasZeroParties');
     sessionStorage.setItem('lastPartyNumber', '0');
     sessionStorage.setItem('wasZeroParties', 'true'); // Явно указываем, что было нулевое состояние
+
+    // Звуковое оповещение
+    playNotificationSound('clear_all');
 
     console.log('✅ Отслеживание партий полностью сброшено. Следующие партии будут оповещаться с №1.');
 }
@@ -382,69 +390,7 @@ function clearAllFields() {
 /**
  * Сохранение данных в файл .txt с обработкой строк
  */
-function saveDataAsFile() {
-    let data = textarea.value;
 
-    if (!data) {
-        alert('Поле для сохранения пустое!');
-        return;
-    }
-
-    // Получаем название продукта из соответствующего поля
-    const productName = productNameField.value.trim();
-    if (!productName || productName === 'Не определено') {
-        alert('Не удалось определить название продукта. Проверьте данные в поле "Название продукта"');
-        return;
-    }
-
-    // Разделяем на строки, удаляем пустые и строки с пробелами
-    const lines = data.split('\n');
-    const nonEmptyLines = lines.filter(line => line.trim().length > 0);
-
-    if (nonEmptyLines.length === 0) {
-        alert('Нет данных для сохранения — все строки пустые!');
-        return;
-    }
-
-    // Обрабатываем каждую строку: вставляем символ  после 31‑го символа только если его там ещё нет
-    const processedLines = nonEmptyLines.map(line => {
-        if (line.length <= 31) {
-            return line;
-        }
-        if (line[31] === '') {
-            return line;
-        }
-        return line.slice(0, 31) + '' + line.slice(31);
-    });
-
-    data = processedLines.join('\r\n') + '\r\n';
-
-    // Преобразуем строку в Uint8Array для гарантированной корректной кодировки
-    const uint8Array = new Uint8Array(data.length);
-    for (let i = 0; i < data.length; i++) {
-        uint8Array[i] = data.charCodeAt(i);
-    }
-
-    // Создаём Blob с данными, явно указывая кодировку
-    const blob = new Blob([uint8Array], { type: 'text/plain;charset=utf-8' });
-
-    // Формируем имя файла: используем ТОЛЬКО название продукта
-    // ... продолжение функции saveDataAsFile()
-const fileName = `${productName}.txt`;
-
-// Создаём ссылку для скачивания
-const link = document.createElement('a');
-link.href = URL.createObjectURL(blob);
-link.download = fileName;
-
-// Добавляем ссылку в документ, запускаем клик и удаляем ссылку
-document.body.appendChild(link);
-link.click();
-document.body.removeChild(link);
-
-// Освобождаем URL-объект
-URL.revokeObjectURL(link.href);
-}
 
 // Обработчик ввода в текстовом поле
 textarea.addEventListener('input', async function() {
@@ -476,7 +422,7 @@ textarea.addEventListener('input', async function() {
     productNameField.value = productName;
 
     // Остальная логика обработки строк
-    const unitsPerBatch = parseInt(document.getElementById('unitsPerBatch').value) || 300;
+    const unitsPerBatch = parseInt(document.getElementById('unitsPerBatch').value) || 120;
     let lineCounter = 0;
     let currentParty = 1;
 
@@ -509,48 +455,83 @@ textarea.addEventListener('input', async function() {
     updateSumLinesWithParties(uniqueLines.size);
 });
 
+
+
+
+
+
+
+
+
+
+
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', async function() {
-    // ИНИЦИАЛИЗИРУЕМ отслеживание партий и нулевого состояния при загрузке
-    sessionStorage.setItem('lastPartyNumber', '0');
-    sessionStorage.setItem('wasZeroParties', 'true');
-    console.log('🔔 Отслеживание партий инициализировано (0, wasZeroParties=true)');
-    // Инициализируем словарь при загрузке страницы
-    await loadProductMapFromExcel();
+  // ИНИЦИАЛИЗИРУЕМ отслеживание партий и нулевого состояния при загрузке
+  sessionStorage.setItem('lastPartyNumber', '0');
+  sessionStorage.setItem('wasZeroParties', 'true');
+  console.log('🔔 Отслеживание партий инициализировано (0, wasZeroParties=true)');
 
-    // Устанавливаем значение по умолчанию для поля единиц в партии
-    document.getElementById('unitsPerBatch').value = '300';
+  // Инициализируем словарь при загрузке страницы
+  await loadProductMapFromExcel();
 
-    // Инициализируем отображение информации о партиях
-    updateSumLinesWithParties(0);
+  // Устанавливаем значение по умолчанию для поля единиц в партии
+  document.getElementById('unitsPerBatch').value = '120';
 
-    // Добавляем обработчик изменения для поля "Количество единиц в партии"
-    document.getElementById('unitsPerBatch').addEventListener('input', function() {
-        const lines = textarea.value.split('\n');
-        const uniqueLines = new Set();
+  // Инициализируем отображение информации о партиях
+  updateSumLinesWithParties(0);
 
-        lines.forEach(line => {
-            if (line.trim() && !uniqueLines.has(line.trim())) {
-                uniqueLines.add(line.trim());
-            }
-        });
+  // Добавляем обработчик изменения для поля "Количество единиц в партии"
+  document.getElementById('unitsPerBatch').addEventListener('input', function() {
+    const lines = textarea.value.split('\n');
+    const uniqueLines = new Set();
 
-        updateSumLinesWithParties(uniqueLines.size);
+    lines.forEach(line => {
+      if (line.trim() && !uniqueLines.has(line.trim())) {
+        uniqueLines.add(line.trim());
+      }
     });
 
-    // Добавляем обработчик для поля загрузки Excel-файла
-    document.getElementById('excelFileInput').addEventListener('change', function() {
-        loadProductMapFromExcel().then(() => {
-            // После загрузки словаря перепроверяем текущее содержимое текстового поля
-            if (textarea.value.trim()) {
-                textarea.dispatchEvent(new Event('input'));
-            }
-        });
-    });
-});
+    updateSumLinesWithParties(uniqueLines.size);
+  });
 
-// === РАЗДЕЛЕНИЕ ФАЙЛА ПО КОЛИЧЕСТВУ КОДОВ ===
-document.getElementById('splitFileInput').addEventListener('change', function(event) {
+  // Добавляем обработчик для поля загрузки Excel-файла
+  document.getElementById('excelFileInput').addEventListener('change', function() {
+    loadProductMapFromExcel().then(() => {
+      // После загрузки словаря перепроверяем текущее содержимое текстового поля
+      if (textarea.value.trim()) {
+        textarea.dispatchEvent(new Event('input'));
+      }
+    });
+  });
+
+  // === ОБРАБОТЧИКИ ДЛЯ ЧЕКБОКСОВ РЕГИОНОВ (РБ/РФ) ===
+  const regionRB = document.getElementById('regionRB');
+  const regionRF = document.getElementById('regionRF');
+
+  regionRB.addEventListener('change', function() {
+    if (this.checked) {
+      // Если выбрали РБ, снимаем отметку с РФ
+      regionRF.checked = false;
+    }
+    // Если сняли выбор с РБ, ничего не делаем — другой чекбокс остаётся как есть
+  });
+
+  regionRF.addEventListener('change', function() {
+    if (this.checked) {
+      // Если выбрали РФ, снимаем отметку с РБ
+      regionRB.checked = false;
+    }
+    // Если сняли выбор с РФ, ничего не делаем — другой чекбокс остаётся как есть
+  });
+
+
+
+
+
+
+  // === РАЗДЕЛЕНИЕ ФАЙЛА ПО КОЛИЧЕСТВУ КОДОВ ===
+  document.getElementById('splitFileInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
 
     if (!file) {
@@ -564,10 +545,24 @@ document.getElementById('splitFileInput').addEventListener('change', function(ev
 
     reader.onload = function(e) {
         const content = e.target.result;
-        // Разделяем на строки, обрезаем пробелы и удаляем пустые строки
-        splitFileData = content.split('\n')
-            .map(line => line.trim())
-            .filter(line => line !== '');
+        // Разделяем на строки и обрезаем пробелы
+        let lines = content.split('\n').map(line => line.trim());
+
+        // Удаляем дубликаты, сохраняя порядок
+        const uniqueLines = [];
+        const seen = new Set();
+
+        for (const line of lines) {
+            if (!seen.has(line)) {
+                seen.add(line);
+                uniqueLines.push(line);
+            }
+        }
+
+        // УДАЛЯЕМ ПУСТЫЕ СТРОКИ
+        const nonEmptyUniqueLines = uniqueLines.filter(line => line.length > 0);
+
+        splitFileData = nonEmptyUniqueLines;
 
         const totalLines = splitFileData.length;
         const codesPerFile = parseInt(document.getElementById('codesPerFile').value) || 100;
@@ -575,10 +570,10 @@ document.getElementById('splitFileInput').addEventListener('change', function(ev
 
         splitFileInfo.innerHTML = `
             <strong>Файл загружен:</strong> ${file.name}<br>
-            <strong>Всего строк:</strong> ${totalLines}
+            <strong>Всего строк (после обработки):</strong> ${totalLines}
         `;
 
-        showSplitStatus('Файл успешно загружен. Готов к разделению.', 'info');
+        showSplitStatus('Файл загружен и обработан. Готов к разделению.', 'info');
     };
 
     reader.onerror = function() {
@@ -586,15 +581,44 @@ document.getElementById('splitFileInput').addEventListener('change', function(ev
         showSplitStatus('Ошибка при загрузке файла.', 'error');
     };
 
-    // Определяем тип файла и читаем соответствующим способом
-    if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
+    // Проверка расширения файла с использованием substring
+    const fileName = file.name.toLowerCase();
+    if (file.type === 'text/plain' || fileName.substring(fileName.length - 4) === '.txt') {
         reader.readAsText(file);
-    } else if (file.name.endsWith('.csv')) {
+    } else if (fileName.substring(fileName.length - 4) === '.csv') {
         reader.readAsText(file);
     } else {
-        reader.readAsText(file); // По умолчанию читаем как текст
+        reader.readAsText(file);
     }
+// <br><strong>Будет создано файлов (по ${codesPerFile} кодов):</strong> ${totalFiles} - удалил, там где остальные <strong>
 });
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Функция разделения файла
 function splitFile() {
@@ -611,11 +635,17 @@ function splitFile() {
         return;
     }
 
-    const totalLines = splitFileData.length;
+    // Удаляем пустые строки из данных
+    const nonEmptyLines = splitFileData.filter(line => line.trim().length > 0);
+
+    const totalLines = nonEmptyLines.length;
     const totalFiles = Math.ceil(totalLines / codesPerFile);
 
-    // Удаляем расширение из имени файла для использования в названии папки
-    const folderName = originalFileName.replace(/\.[^.]+$/, '');
+    // Обновляем информацию о файле в интерфейсе
+    splitFileInfo.innerHTML = `
+        <strong>Файл загружен:</strong> ${originalFileName}<br>
+        <strong>Всего строк:</strong> ${totalLines}
+    `;
 
     // Показываем процесс разделения
     showSplitStatus(`Начинаем разделение на ${totalFiles} файлов...`, 'info');
@@ -625,15 +655,32 @@ function splitFile() {
     // Разделяем данные на части и создаём файлы
     for (let i = 0; i < totalLines; i += codesPerFile) {
         // Берём часть данных: от i до i + codesPerFile (или до конца массива)
-        const chunk = splitFileData.slice(i, i + codesPerFile);
+        const chunk = nonEmptyLines.slice(i, i + codesPerFile);
+
+        // Обрабатываем каждую строку в чанке: добавляем  после 31-го символа, если его нет
+        const processedChunk = chunk.map(line => {
+            // Пропускаем обработку, если строка короче 31 символа
+            if (line.length <= 31) {
+                return line;
+            }
+
+            // Проверяем, есть ли уже  на 32‑й позиции (индекс 31)
+            if (line[31] === '') {
+                // Если символ уже есть, возвращаем строку без изменений
+                return line;
+            }
+
+            // Вставляем  после 31‑го символа (индекс 31)
+            return line.slice(0, 31) + '' + line.slice(31);
+        });
 
         // Создаём Blob для скачивания
-        const blob = new Blob([chunk.join('\r\n') + '\r\n'], {
+        const blob = new Blob([processedChunk.join('\r\n') + '\r\n'], {
             type: 'text/plain;charset=utf-8'
         });
 
         // Формируем имя файла: folderName/part_1_of_6.txt, folderName/part_2_of_6.txt и т. д.
-        const fileName = `${folderName}/part_${currentFileIndex}_of_${totalFiles}.txt`;
+        const fileName = `${originalFileName.replace(/\.[^.]+$/, '')}/part_${currentFileIndex}_of_${totalFiles}.txt`;
 
         // Создаём ссылку для скачивания
         const url = URL.createObjectURL(blob);
@@ -648,9 +695,25 @@ function splitFile() {
         currentFileIndex++;
     }
 
-    // Показываем итоговое оповещение об успешном выполнении (упрощённое)
-    showSplitStatus('Файл успешно разделён', 'success');
+    // Звуковое оповещение
+    playNotificationSound('split');
+
+
+    // Показываем итоговое оповещение об успешном выполнении
+    showSplitStatus('Файл успешно разделён');
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Вспомогательная функция для отображения статуса
 function showSplitStatus(message, type) {
@@ -682,6 +745,9 @@ advancedFileInput.addEventListener('change', function(event) {
         let fileName = file.name.replace(/\.[^.]+$/, '_processed.txt');
         saveToFile(processedContent, fileName);
     };
+
+    // Звуковое оповещение
+    playNotificationSound('split_save');
 
     reader.readAsText(file);
 });
@@ -775,6 +841,13 @@ function saveToFile(content, fileName) {
     }, 3000);
 }
 
+
+
+
+
+
+
+
 // === ОБРАБОТКА ДВУХ ФАЙЛОВ ===
 
 function processFiles() {
@@ -788,60 +861,108 @@ function processFiles() {
         const reader1 = new FileReader();
         reader1.onload = function() {
             const text1 = reader1.result;
-            const lines1 = text1.split('\n').map(line => line.trim()).filter(line => line !== '');
+            const lines1 = text1.split('\n').map(line => line.trim());
 
             const reader2 = new FileReader();
             reader2.onload = function() {
                 const text2 = reader2.result;
-                const lines2 = text2.split('\n').map(line => line.trim()).filter(line => line !== '');
+                const lines2 = text2.split('\n').map(line => line.trim());
 
-                const uniqueLines = new Set(lines1);
+                // Шаг 1: Удаление символа  из всех строк в обоих файлах
+                const cleanLines1 = lines1.map(line => line.replace(//g, ''));
+                const cleanLines2 = lines2.map(line => line.replace(//g, ''));
+
+                // Шаг 2: Разбиение строк длиннее 38 символов на части
+                const splitLines1 = splitLongLines(cleanLines1);
+                const splitLines2 = splitLongLines(cleanLines2);
+
+                // Шаг 3: Удаление пустых строк
+                const nonEmptyLines1 = splitLines1.filter(line => line !== '');
+                const nonEmptyLines2 = splitLines2.filter(line => line !== '');
+
+                // Шаг 4: Удаление дубликатов внутри каждого файла
+                const uniqueLines1 = [...new Set(nonEmptyLines1)];
+                const uniqueLines2 = [...new Set(nonEmptyLines2)];
+
+                // Уникальная логика: удаление строк из первого файла, которые есть во втором
+                const finalUniqueLines = new Set(uniqueLines1);
                 const deletedLines = [];
 
-                // Удаляем строки из первого файла, которые есть во втором
-                lines1.forEach(line => {
-                    if (lines2.includes(line)) {
-                uniqueLines.delete(line);
-                deletedLines.push(line);
-            }
-        });
+                uniqueLines1.forEach(line => {
+                    if (uniqueLines2.includes(line)) {
+                        finalUniqueLines.delete(line);
+                        deletedLines.push(line);
+                    }
+                });
 
-        // Обрабатываем оставшиеся строки: вставляем  после 31-го символа
-        const processedLines = Array.from(uniqueLines).map(line => {
-            if (line.length <= 31) {
-                return line;
-            }
+                // Шаг 5: Добавление символа  после 31-го символа
+                const processedLines = Array.from(finalUniqueLines).map(line => {
+                    if (line.length <= 31) {
+                        return line;
+                    }
 
-            // Проверяем, есть ли уже  на 32‑й позиции (индекс 31)
-            if (line[31] === '') {
-                return line; // Уже есть, оставляем как есть
-            }
+                    if (line[31] === '') {
+                        return line;
+                    }
 
-            // Вставляем  после 31‑го символа (индекс 31)
-            return line.slice(0, 31) + '' + line.slice(31);
-        });
+                    return line.slice(0, 31) + '' + line.slice(31);
+                });
 
-        // Собираем строки с CRLF, добавляем перенос в конце файла (ENTER в последней строке)
-        currentResult = processedLines.join('\r\n') + '\r\n';
+                // Финальная сборка результата
+                currentResult = processedLines.join('\r\n') + '\r\n';
 
-        // Показываем количество удалённых строк
-        statusTwoFilesElement.textContent = `Обработано: удалено ${deletedLines.length} строк.`;
-        statusTwoFilesElement.className = 'status success';
+                // Показываем количество удалённых строк
+                statusTwoFilesElement.textContent = `Обработано: удалено ${deletedLines.length} строк.`;
+                statusTwoFilesElement.className = 'status success';
 
-        setTimeout(() => {
-            statusTwoFilesElement.textContent = '';
-            statusTwoFilesElement.className = 'status';
-        }, 5000);
-    };
+                // Звуковое оповещение
+                playNotificationSound('process');
 
-    reader2.readAsText(file2);
-};
 
-reader1.readAsText(file1);
-} else {
-    alert('Пожалуйста, выберите оба файла.');
+                setTimeout(() => {
+                    statusTwoFilesElement.textContent = '';
+                    statusTwoFilesElement.className = 'status';
+                }, 5000);
+            };
+
+            reader2.readAsText(file2);
+        };
+
+        reader1.readAsText(file1);
+    } else {
+        alert('Пожалуйста, выберите оба файла.');
+    }
 }
+
+// Вспомогательная функция для разбиения длинных строк
+function splitLongLines(lines) {
+    const result = [];
+    for (const line of lines) {
+        if (line.length <= 37) {
+            result.push(line);
+        } else {
+            // Разбиваем строку на части по 38 символов
+            for (let i = 0; i < line.length; i += 37) {
+                result.push(line.substring(i, i + 37));
+            }
+        }
+    }
+    return result;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Сохранение результата для двух файлов (с ENTER в последней строке)
 function saveResult() {
@@ -874,105 +995,130 @@ function saveResult() {
     a.click();
     document.body.removeChild(a);
 
+    //Звуковое оповещение
+    playNotificationSound('download');
+
     // Освобождаем память
     URL.revokeObjectURL(url);
 }
 
-// ФУНКЦИЯ ОЧИСТКИ ВСЕХ ПОЛЕЙ
-function clearAllFields() {
-    // Очищаем левое текстовое поле
-    textarea.value = '';
-    // Очищаем все правые поля ввода
-    sumLinesField.value = '';
-    sumCalculationField.value = '';
-    productNameField.value = '';
-    packagesCountField.value = '';
-    bottlesPerPackageField.value = '';
-    document.getElementById('unitsPerBatch').value = '300'; // Сброс до значения по умолчанию
 
-    // ГАРАНТИРОВАННЫЙ СБРОС отслеживания партий
-    sessionStorage.removeItem('lastPartyNumber');
-    sessionStorage.setItem('lastPartyNumber', '0');
 
-    console.log('✅ Отслеживание партий полностью сброшено. Следующие партии будут оповещаться с №1.');
-}
 
-// Функция сохранения данных в файл .txt (с вставкой символа  после 31‑го символа)
+
+
+
+
+
+
+
+
+
+
+
+
 function saveDataAsFile() {
-    let data = textarea.value;
+  // Получаем элементы регионов
+  const regionRB = document.getElementById('regionRB');
+  const regionRF = document.getElementById('regionRF');
 
-    if (!data) {
-        alert('Поле для сохранения пустое!');
-        return;
+  // Определяем суффикс региона (только если выбран какой‑то регион)
+  let regionSuffix = '';
+  if (regionRB.checked) {
+    regionSuffix = ' РБ';
+  } else if (regionRF.checked) {
+    regionSuffix = ' РФ';
+  }
+
+  let data = textarea.value;
+
+  if (!data) {
+    alert('Поле для сохранения пустое!');
+    return;
+  }
+
+  // Получаем название продукта из соответствующего поля
+  const productName = productNameField.value.trim();
+
+  // Проверяем, заполнено ли поле названия продукта
+  if (!productName || productName === 'Не определено') {
+    alert('Не удалось определить название продукта. Проверьте данные в поле "Название продукта"');
+    return;
+  }
+
+  // Разделяем на строки, удаляем пустые и строки с пробелами
+  const lines = data.split('\n');
+  const nonEmptyLines = lines.filter(line => line.trim().length > 0);
+  const totalLines = nonEmptyLines.length;
+
+  if (totalLines === 0) {
+    alert('Нет данных для сохранения — все строки пустые!');
+    return;
+  }
+
+  // Обрабатываем каждую строку: вставляем символ  после 31‑го символа только если его там ещё нет
+  const processedLines = nonEmptyLines.map(line => {
+    // Пропускаем обработку, если строка короче 31 символа
+    if (line.length <= 31) {
+      return line;
     }
 
-    // Получаем название продукта из соответствующего поля
-    const productName = productNameField.value.trim();
-
-    // Проверяем, заполнено ли поле названия продукта
-    if (!productName || productName === 'Не определено') {
-        alert('Не удалось определить название продукта. Проверьте данные в поле "Название продукта"');
-        return;
+    // Проверяем, есть ли уже  на 32‑й позиции (индекс 31)
+    if (line[31] === '') {
+      // Если символ уже есть, возвращаем строку без изменений
+      return line;
     }
 
-    // Разделяем на строки, удаляем пустые и строки с пробелами
-    const lines = data.split('\n');
-        const nonEmptyLines = lines.filter(line => line.trim().length > 0);
+    // Вставляем  после 31‑го символа
+    return line.slice(0, 31) + '' + line.slice(31);
+  });
 
-    if (nonEmptyLines.length === 0) {
-        alert('Нет данных для сохранения — все строки пустые!');
-        return;
-    }
+  // Собираем строки обратно с CRLF
+  data = processedLines.join('\r\n') + '\r\n';
 
-    // Обрабатываем каждую строку: вставляем символ  после 31-го символа только если его там ещё нет
-    const processedLines = nonEmptyLines.map(line => {
-        // Пропускаем обработку, если строка короче 31 символа
-        if (line.length <= 31) {
-            return line;
-        }
+  // Преобразуем строку в Uint8Array для гарантированной корректной кодировки
+  const uint8Array = new Uint8Array(data.length);
+  for (let i = 0; i < data.length; i++) {
+    uint8Array[i] = data.charCodeAt(i);
+  }
 
-        // Проверяем, есть ли уже  на 32‑й позиции (индекс 31)
-        if (line[31] === '') {
-            // Если символ уже есть, возвращаем строку без изменений
-            return line;
-        }
+  // Создаём Blob с данными, явно указывая кодировку
+  const blob = new Blob([uint8Array], { type: 'text/plain;charset=utf-8' });
 
-        // Вставляем  после 31‑го символа
-        return line.slice(0, 31) + '' + line.slice(31);
-    });
+  // Формируем имя файла: "Название (количество) Регион.txt" (регион добавится только если выбран)
+  const fileName = `${productName} (${totalLines})${regionSuffix}.txt`;
 
-    // Собираем строки обратно с CRLF
-    data = processedLines.join('\r\n') + '\r\n';
+  // Создаём ссылку для скачивания
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = fileName;
 
-    // Преобразуем строку в Uint8Array для гарантированной корректной кодировки
-    const uint8Array = new Uint8Array(data.length);
-    for (let i = 0; i < data.length; i++) {
-        uint8Array[i] = data.charCodeAt(i);
-    }
+  // Добавляем ссылку в документ, имитируем клик и удаляем ссылку
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 
-    // Создаём Blob с данными, явно указывая кодировку
-    const blob = new Blob([uint8Array], { type: 'text/plain;charset=utf-8' });
+  // Звуковое оповещение
+  playNotificationSound('save');
 
-    // Формируем имя файла: используем ТОЛЬКО название продукта
-    const fileName = `${productName}.txt`;
-
-    // Создаём ссылку для скачивания
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = fileName;
-
-    // Добавляем ссылку в документ, имитируем клик и удаляем ссылку
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // Освобождаем память
-    URL.revokeObjectURL(link.href);
+  // Освобождаем память
+  URL.revokeObjectURL(link.href);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 // Функция для обновления поля sumLinesField с информацией о сумме и партии
 function updateSumLinesWithParties(totalLines) {
-    const unitsPerBatch = parseInt(document.getElementById('unitsPerBatch').value) || 300;
+    const unitsPerBatch = parseInt(document.getElementById('unitsPerBatch').value) || 120;
     const totalParties = Math.ceil(totalLines / unitsPerBatch);
     let displayText = '';
 
@@ -1036,19 +1182,13 @@ function updateSumLinesWithParties(totalLines) {
         // Сохраняем новое значение
         sessionStorage.setItem('lastPartyNumber', totalParties.toString());
         // Воспроизводим звук
-        playNotificationSound();
+        playNotificationSound('party');
     }
 }
 
 // Обработчики для полей ввода чисел
 packagesCountField.addEventListener('input', updateCalculation);
 bottlesPerPackageField.addEventListener('input', updateCalculation);
-
-function updateCalculation() {
-    const packagesCount = parseFloat(packagesCountField.value) || 0;
-    const bottlesPerPackage = parseFloat(bottlesPerPackageField.value) || 0;
-    sumCalculationField.value = packagesCount * bottlesPerPackage;
-}
 
 // Дополнительная функция для ручного обновления словаря из Excel
 async function refreshProductMap() {
@@ -1070,7 +1210,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         await loadProductMapFromExcel();
 
         // Устанавливаем значение по умолчанию для поля единиц в партии
-        document.getElementById('unitsPerBatch').value = '300';
+        document.getElementById('unitsPerBatch').value = '120';
 
         // Инициализируем отображение информации о партиях
         updateSumLinesWithParties(0);
@@ -1084,30 +1224,37 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         // Обработчик ввода в текстовом поле
         textarea.addEventListener('input', function() {
-            // Сохраняем позицию курсора и прокрутки *до* обработки
-            const cursorPosition = textarea.selectionStart;
-            const scrollTop = textarea.scrollTop;
+    // Сохраняем позицию курсора и прокрутки *до* обработки
+    const cursorPosition = textarea.selectionStart;
+    const scrollTop = textarea.scrollTop;
 
-            // Разбиваем текст на строки по символу переноса (Enter)
-            const lines = textarea.value.split('\n');
-            const uniqueLines = new Set();
-            const processedLines = [];
+    // Удаляем все символы  из текста
+    const cleanedValue = textarea.value.replace(//g, '');
 
-            // Определяем название продукта для первой подходящей строки
-            let productName = 'Не определено';
-            for (const line of lines) {
-                const trimmedLine = line.trim();
-                if (trimmedLine) {
-                    productName = findProductName(trimmedLine);
-                    if (productName !== 'Не определено') {
-                        break;
-                    }
-                }
+    if (cleanedValue !== textarea.value) {
+        textarea.value = cleanedValue;
+    }
+
+    // Разбиваем текст на строки по символу переноса (Enter)
+    const lines = textarea.value.split('\n');
+    const uniqueLines = new Set();
+    const processedLines = [];
+
+    // Определяем название продукта для первой подходящей строки
+    let productName = 'Не определено';
+    for (const line of lines) {
+        const trimmedLine = line.trim();
+        if (trimmedLine) {
+            productName = findProductName(trimmedLine);
+            if (productName !== 'Не определено') {
+                break;
             }
-            productNameField.value = productName;
+        }
+    }
+    productNameField.value = productName;
 
     // Получаем количество единиц в партии
-    const unitsPerBatch = parseInt(document.getElementById('unitsPerBatch').value) || 300;
+    const unitsPerBatch = parseInt(document.getElementById('unitsPerBatch').value) || 120;
 
     let lineCounter = 0;
     let currentParty = 1;
@@ -1151,7 +1298,16 @@ document.addEventListener('DOMContentLoaded', async function() {
     updateSumLinesWithParties(uniqueLines.size);
 });
 
+
+
+
+
+
+
+
+
 // Обработчики событий для кнопок (если они есть на странице)
+document.getElementById('clearAllBtn')?.addEventListener('click', clearLeftFields);
 document.getElementById('clearAllBtn')?.addEventListener('click', clearAllFields);
 document.getElementById('saveDataBtn')?.addEventListener('click', saveDataAsFile);
 document.getElementById('processFilesBtn')?.addEventListener('click', processFiles);
