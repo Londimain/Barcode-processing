@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Ильенков Сергей Михайлович">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Инструкция по обработке данных">
+    <title>Инструкция по обработке данных</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="page2">
+<div class="container page2">
+<div class="contacts page2">
+<br><p class="rainbow-text">Инструкция по обработке данных</p>
+<div class="main-content">
+
+<table>
+  <tbody>
+    <tr>
+      <td><div class="button-group"><button type="button" onclick="DataEntry()">Ввод данных</button></div></td>
+      <td><div class="button-group"><button type="button" onclick="search()">Поиск кодов</button></div></td>
+      <td><div class="button-group"><button type="button" onclick="Sorting()">Сортировка</button></div></td>
+      <td><div class="button-group"><button type="button" onclick="Splitting()">Разделение файла</button></div></td>
+    </tr>
+    <tr>
+      <td><div class="button-group"><button type="button" onclick="Processing()">Обработка файла</button></div></td>
+      <td><div class="button-group"><button type="button" onclick="ProcessingFULL()">Обработка файлов</button></div></td>
+      <td><div class="button-group"><button type="button" onclick="SearchMARK()">Поиск марок</button></div></td>
+      <td><div class="button-group"><button type="button" onclick="CalculationMARK()">Формирование</button></div></td>
+    </tr>
+    <tr>
+      <td><div class="button-group"><button type="button" onclick="sortingMARK()">Сортировка с БСО</button></div></td>
+      <td><div class="button-group"><button type="button" onclick="expirationDate()">Калькулятор дней</button></div></td>
+      <td><div class="button-group"><button type="button" onclick="DelsMarkFiles()">Удаление марок</button></div></td>
+      <td colspan="1"></td>
+    </tr>
+    <tr>
+      <td colspan="4">
+<div class="split-sorting-section">
+<div id="instructions" class="custom-font-stran" style="display: none; white-space: pre-line; text-align: left; padding: 0 0 0 5px; margin-top: -10px; margin-bottom: -10px;">
+</div>
+</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</div></div></div>
+
+<footer>
+  <p>© 2026 ОАО «Компания MogNat». Все права защищены.</p>
+  <p>
+    <a class="link-1" href="obrabotka.html">Обработка данных</a> |
+    <a class="link-2" href="opisanie.html">Описание</a> |
+    <a class="link-3" href="contacts.html">Контакты</a> |
+    <a class="link-4" href="customization.html">Настройка сканера</a> |
+    <a class="link-5" href="cancellation.html">Списание</a>
+  </p>
+</footer>
+<!-- Функции описания инструкций -->
+<script src="js/manual.js"></script>
+<!-- Функция чтобы при клике на ячейку в колонке «Email» содержимое копировалось в буфер обмена -->
+<script src="js/DOMContentLoaded.js"></script>
+<!-- Эффект сжимания кнопки при клике на кнопку очистить все поля -->
+<script src="js/button.js"></script>
+</body>
+</html>

@@ -49,7 +49,7 @@ tfoot {
 
 .info-card h3 {
   margin-top: 0;
-  color: #2c3e50;
+  color: #000000;
   font-size: 1.2rem;
   border-bottom: 2px solid #667eea;
   padding-bottom: 6px;
@@ -67,6 +67,32 @@ tfoot {
   margin-right: 8px;
 }
 
+/* Для OL и LI */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* Для OL и LI */
+.bold-list {
+  color: #222020;
+}
+/* Для OL и LI */
+.bold-list li {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold; /* Весь пункт жирный (включая маркер) */
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+/* Для OL и LI */
+.bold-list li span {
+  font-weight: normal; /* Текст внутри — обычный */
+  display: block;
+  padding-right: 20px;
+}
+
+/* Для скрипта manual - нумерация */
+.step-number {
+  position: relative;
+  color: #af4949;
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -77,6 +103,7 @@ tfoot {
     background: linear-gradient(135deg, #1a2a6c, #2c3e50);
     color: #ecf0f1;
   }
+  /* Цвет внутри полей ввода цифр */
   .container, .left-section, .file-section, .info-card, table, .input-field, input[type="file"] {
     background: #2c3e50;
     border-color: #34495e;
@@ -131,11 +158,15 @@ tfoot {
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
-  padding: 15px; /* уменьшен отступ */
+  padding: 15px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
-  color: #333;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Гарантирует, что footer будет внизу */
 }
+
 
 .container {
   max-width: 1370px;
@@ -144,27 +175,243 @@ body {
   border-radius: 25px;
   overflow: hidden;
   border: 2px solid black;
+  flex: 0 0 auto; /* Контейнер не растягивается */
+  margin-bottom: 0; /* Убираем отступ, чтобы не конфликтовать с расположением footer */
 }
 
-        .rainbow-text {
-    font-family: 'Montserrat', cursive;
-    font-size: 2rem;
-    letter-spacing: 3px; /* зазор ... px между символами */
-    background: repeating-linear-gradient(
-        90deg,
-        red, orange 10%, yellow 20%,
-        green 30%, blue 40%, indigo 50%,
-        violet 60%, red 70%
-    );
-    background-size: 300% 300%;
-    -webkit-text-stroke: 0.6px rgb(255, 255, 255); /* толщина и цвет обводки */
-    
-    background-clip: text;
-    color: transparent;
-    animation: rainbowShift 5s linear infinite;
-    text-align: center;
-    margin: -10px 0;
-    padding: 2px 0px; /* уменьшены отступы */
+
+
+
+
+
+/* Начало всё для FOOTER */
+footer {
+  text-align: center;
+  padding: 1rem 1.25rem; /* увеличенные отступы в rem для адаптивности */
+  background: transparent; /* явно задаём прозрачность фона */
+  color: var(--footer-text-color, #333); /* используем кастомное свойство для цвета текста */
+  font-size: 0.9em;
+  margin-top: auto; /* прижимает footer к низу в flex‑контейнерах */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+footer p {
+  margin: 0.1rem 0; /* отступы в rem */
+  font-size: 1rem; /* унификация размера шрифта */
+  line-height: 1.5; /* улучшенная читаемость */
+}
+
+footer a {
+  --delay: 0s;
+  --duration: 2s;
+  color: #ca88ca;
+  text-decoration: none;
+  margin: 0 0.5rem; /* адаптивные отступы */
+  padding: 0.25rem 0.5rem; /* небольшой «кликабельный» отступ */
+  border-radius: 4px; /* скругление углов для лучшей визуальной связи */
+  display: inline-block; /* для корректной работы padding */
+}
+
+/* Эффект пульсации только для не‑наведённых ссылок */
+footer a:not(:hover) {
+  animation: pulse var(--duration) infinite;
+  animation-delay: var(--delay);
+}
+
+/* Классы для задержки анимации */
+.link-1 { --delay: 0.2s; --duration: 1.1s; }
+.link-2 { --delay: 0.4s; --duration: 1.3s; }
+.link-3 { --delay: 0.6s; --duration: 1.4s; }
+.link-4 { --delay: 0.5s; --duration: 1.5s; }
+.link-5 { --delay: 0.3s; --duration: 1.8s; }
+
+@keyframes pulse {
+  0% { color: #e4cf5a; }
+  50% { color: #57f3d1; }
+  100% { color: #6ae26a; }
+}
+
+/* Стили при наведении */
+footer a:hover {
+  color: #ffffff;
+  background-color: var(--hover-bg, #4b45a1); /* лёгкий фон при наведении */
+  text-decoration: none;
+}
+
+/* Адаптивность: уменьшаем отступы на мобильных */
+@media (max-width: 768px) {
+  footer {
+    padding: 1.5rem 1rem;
+  }
+  footer a {
+    margin: 0.25rem;
+    font-size: 0.95rem;
+  }
+}
+/* Конец всё для FOOTER */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* #3f9c09 Для общих кнопок (button) #4CAF50 */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+  max-width: 200px;
+  display: block;
+  margin: 8px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid black;
+  transform: scale(1);
+  transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+button.pressed {
+  transform: scale(0.92); /* Сильное сжатие к центру */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); /* Уменьшенная тень */
+}
+
+
+button:hover {
+  background-color: #2e7a07; /* Новый цвет фона при наведении */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Увеличенная тень */
+}
+.clear-button:hover {
+  background-color: #722429; /* Темнее исходного #571d20 */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Для кнопки .clear-button */
+.clear-button {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background-color: #912127;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+  border: 2px solid black;
+  transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.1s ease;
+  transform: scale(1);
+}
+
+.clear-button.pressed {
+  transform: scale(0.92);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+/* Для кнопки .split-button */
+.split-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.1s ease;
+  transform: scale(1);
+}
+.split-button.pressed {
+  transform: scale(0.92);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px; /* Расстояние между кнопками */
+    justify-content: center; /*flex-start; Выравнивание влево */
+    margin: 0px auto 0;
+}
+
+.clear-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  padding: 6px 10px;
+  margin-top: -10px;    /* отступ сверху */
+  margin-bottom: 0px; /* отступ снизу — теперь сработает! */
+  margin-left: 0px;   /* отступ слева */
+  margin-right: 0px;  /* отступ справа */
+}
+
+
+/* Для заблокированной кнопки (чтобы пользователь видел состояние) #354fe6*/
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #833034;
+  color: #ffffff;
+}
+
+.disabled-button {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #4CAF50;
+    color: #ffffff;
+}
+
+/* Плавный переход для лучшего UX */
+button {
+    transition: all 0.3s ease;
+}
+
+.rainbow-text {
+  font-family: 'Montserrat', cursive;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    #800020,
+    #003366 10%,
+    #228b22 20%,
+    #4b0082 30%,
+    #e7305b 40%,
+    #008080 50%,
+    #333333 60%,
+    #800020 70%
+  );
+  background-size: 300% 300%;
+  -webkit-text-stroke: 1px #000; /* чёрная обводка для чёткости */
+  background-clip: text;
+  color: transparent;
+  animation: rainbowShift 5s linear infinite;
+  text-align: center;
+  margin: -10px 0;
+  padding: 5px 0px;
 }
 
 @keyframes rainbowShift {
@@ -186,7 +433,7 @@ h1 {
 
 .subtitle {
   font-size: 32px;
-  opacity: 5.8;
+  opacity: 0.8; /* Корректное значение */
   margin-top: 0.5px;
   font-weight: bold;
   color: #d4edda;
@@ -195,27 +442,30 @@ h1 {
 
 .main-content {
   display: flex;
-  gap: 15px; /* уменьшен зазор */
-  padding: 15px; /* уменьшены отступы */
+  gap: 12px; /* уменьшен зазор */
+  padding: 12px; /* уменьшены отступы */
 }
 
 /* Левая секция — основной ввод данных */
 .left-section {
   flex: 1;
-  min-width: 400px;
+  min-width: 435px;
   border: 2px solid black;
-  margin-top: 0px;
-  padding: 8px; /* уменьшены отступы */
+  padding: 0px 8px; /* Внутренние отступы: 15 px сверху/снизу, 8 px слева/справа */
   background: #34ebe1;
   border-radius: 10px;
+  overflow: hidden;
+  margin: 0; /* Сокращённая запись для всех margin */
 }
 
+
+/* Поле для ввода кода*/
 #dataInput {
-  font-size: 15.5px;
+  font-size: 15.2px;
   color: rgb(255, 0, 0);
   -webkit-text-stroke: 0.8px black;
   width: 100%;
-  height: 350px; /* уменьшена высота */
+  height: 610px; /* уменьшена высота */
   resize: none;
   border: 2px solid black;
   padding: 8px; /* уменьшены отступы */
@@ -224,44 +474,53 @@ h1 {
   letter-spacing: 1px;
 }
 
-.clear-button {
-  margin-top: 8px;
-  padding: 8px 16px;
-  background-color: #571d20;
-  color: white;
-  border: none;
-  cursor: pointer;
+/* Поле для поиска ввода кода*/
+#searchInput {
+  font-size: 15.5px;
+  color: rgb(255, 0, 0);
+  -webkit-text-stroke: 0.8px black;
   width: 100%;
-  text-align: center;
-  border-radius: 5px;
+
+  resize: none;
   border: 2px solid black;
-  transition: all 0.3s ease; /* Плавный переход для всех свойств */
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); Тень  */
-}
-
-.clear-button:hover {
-  background-color: #8b2c2f; /* Более светлый оттенок при наведении */
-  transform: translateY(0px); /* Лёгкое поднятие при наведении */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Усиление тени */
-}
-
-.clear-button.pressed {
-  transform: translateY(2px) scale(0.96); /* Сжимание и опускание при нажатии */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Уменьшение тени */
-  transition: transform 0.1s ease, box-shadow 0.1s ease; /* Быстрые переходы для эффекта нажатия */
+  padding: 8px; /* уменьшены отступы */
+  font-family: monospace;
+  border-radius: 5px;
+  letter-spacing: 1px;
 }
 
 
-/* Правая секция — дополнительные поля */
+
+/* Уберает обводки ввода у полей */
+#unitsPerBatch:focus,
+#bottlesPerPackage:focus,
+#packagesCount:focus,
+#start-mark:focus,
+#codesPerFile,
+#end-mark:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+
+
+
+/* Центральная секция — дополнительные поля со значением */
 .right-inputs {
-  flex: 0;
-  min-width: 320px;
+  flex: 1;
+  width: 310px;
+  padding: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 12px; /* уменьшен отступ
+  margin-top: 3px;    /* отступ сверху */
+  margin-bottom: 0px;  /* отступ снизу */
   }
 
 label {
@@ -276,53 +535,50 @@ label {
   border-radius: 5px;
 }
 
-#sumLines, #sumCalculation, #productName {
+
+.input-field[readonly]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+
+/* Поля для вывода информации названия продукта, суммы нужного товара, количество отсканированного товара */
+#sumLines, #sumPack, #sumCalculation, #result, #productName {
   background-color: #f0f0f0;
   color: #555;
   font-weight: bold;
+  user-select: text;
+  -webkit-user-select: text;
+  caret-color: transparent; /* Делает курсор невидимым */
 }
 
-button {
-  background-color: #3f9c09;
-  color: rgb(0, 0, 0);
-  padding: 12px 20px; /* Высота кнопки */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  width: 100%;
-  max-width: 200px; /* Ширина кнопки */
-  display: block;
-  margin: 8px auto; /* Отступы сверху и снизу */
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 2px solid black;
-}
-
-button:hover {
-  background-color: #81ff0b;
-  transform: translateY(0px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  border: 2px solid black;
-}
-
-button.pressed {
-  transform: translateY(2px) scale(0.96);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-}
-
-/* Секции для загрузки файлов */
+/* Секция правая */
 .file-section {
   border: 2px solid black;
   margin-top: 0px;
-  padding: 8px; /* уменьшены отступы */
+  padding: 0px 8px; /* Внутренние отступы: 15 px сверху/снизу, 8 px слева/справа */
   background: #34ebe1;
   flex: 1;
-  min-width: 420px;
+  min-width: 435px;
   border-radius: 10px;
+  overflow: hidden; /* Главное: скрываем всё, что вылезает за границы */
+  box-sizing: border-box;
+  margin: 0; /* Сокращённая запись для всех margin */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .file-section h2 {
   color: #2c3e50;
@@ -331,16 +587,85 @@ button.pressed {
 }
 
 .file-input-group {
-  margin: 12px 0; /* уменьшен отступ */
-  border: 2px solid black;
+  /* margin: 12px 0; уменьшен отступ */
+  /* border: 2px solid black; */
   border-radius: 7px;
+
+  max-width: 375px;          /* Макс. ширина группы */
+  
+  margin: 0 auto;           /* Центрирование по горизонтали */
+  padding: 12px;           /* Отступы внутри контейнера */
+
+  margin-top: -7px;    /* отступ сверху */
+  margin-bottom: 0px;  /* отступ снизу */
+  margin-left: 8px;   /* отступ слева */
+  margin-right: 8px;  /* отступ справа */
 }
+
+
+
+
+
+
+
+
+
+/* Возвращаем стили ввода в простое состояние (убираем обрезку с flex-контейнера) */
+.file-input-group2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Стили для самого поля — только внешний вид */
+.file-input-group2 input[type="file"] {
+  flex-basis: 48%;
+  width: 100%;
+  max-width: 100%;
+  background: #027943;
+  border: 2px solid #000000;
+  font-size: 14px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.file-input-group input[type="file"] {
+  max-width: 400px;        /* Максимальная ширина — 400 px */
+  width: 100%;             /* Занимает всю ширину контейнера (но не более max-width) */
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 14px;
+  background: #027943;
+  border: 2px solid #000000;  /* Упрощённое задание границы */
+  box-sizing: border-box;
+}
+
+
+
 
 input[type="file"] {
   width: 100%;
   padding: 8px; /* уменьшены отступы */
   border-radius: 5px;
-  background: #7ebea1;
+  background: #be927e;
 }
 
 .status {
@@ -353,9 +678,172 @@ input[type="file"] {
   font-size: 14px;
 }
 
+
+
+
+/* Использовал в Сортировка GTIN приёмки с БСО (ИЛИ)*/
+.or-separator {
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+  color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+/* Начало для кнопок в таблице в инструкции */
+/* Стили для кнопок внутри таблицы — единый вид */
+table button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+  max-width: 200px;
+  display: block;
+  margin: 8px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid black;
+  transform: scale(1);
+  transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+table button:hover {
+  background-color: #2e7a07;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+table button.pressed {
+  transform: scale(0.92);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* Центрирование содержимого ячеек таблицы */
+td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+/* Адаптивность: на узких экранах кнопки занимают всю ширину ячейки */
+@media (max-width: 768px) {
+  table button {
+    max-width: none;
+    width: 90%;
+  }
+}
+/* Конец для кнопок в таблице в инструкции */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Ограничение по ширине для оповещения в splitFileInfo */
+.split-file-info {
+  max-width: 400px;          /* Максимальная ширина блока */
+  width: 100%;               /* Занимает всю ширину родителя, но не шире max-width */
+  margin: 0px auto;         /* Отступы сверху/снизу 15 px, центрирование по горизонтали */
+  padding: 1px;             /* Внутренние отступы */
+  border-radius: 6px;       /* Закруглённые углы */
+  font-family: 'Courier New', monospace; /* Моноширинный шрифт */
+  font-size: 13px;         /* Размер шрифта */
+  line-height: 1.5;        /* Межстрочный интервал */
+  color: #333;             /* Цвет текста */
+  word-wrap: break-word;   /* Перенос длинных слов */
+  overflow-y: auto;        /* Вертикальная прокрутка при переполнении */
+/*
+  background: #f8f9fa; Светлый фон 
+  border: 1px solid #e9ecef;  Рамка */
+}
+
+/* Оповещение которое отображается 5 секунд после сохранения файла */
+.status,
+#splitStatus,
+#statusTwoFiles {
+  max-width: 320px;          /* Макс. ширина: 400 px */
+  width: 100%;               /* Ширина: 100 % родителя */
+  max-height: 250px;      /* Макс. высота: 250 px */
+  overflow-y: auto;         /* Вертикальная прокрутка при переполнении */
+  padding: 0px;           /* Отступы внутри: 12 px */
+  margin: 0px auto;        /* Отступы: 15 px сверху/снизу, центрирование по горизонтали */
+  border-radius: 6px;     /* Закругление углов: 6 px */
+  word-wrap: break-word;   /* Перенос длинных слов */
+  font-family: 'Courier New', monospace; /* Моноширинный шрифт */
+  font-size: 13px;       /* Размер шрифта: 13 px */
+  line-height: 1.5;      /* Межстрочный интервал: 1.5 */
+  color: #d31919;           /* Цвет текста: тёмно‑серый */
+/* 
+  background: white; Белый фон 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); Лёгкая тень
+  border: 1px solid #dee2e6; Рамка: 1 px, светло‑серая */
+}
+
+/* Стили для полосы прокрутки (WebKit-браузеры: Chrome, Edge, Safari) */
+.status::-webkit-scrollbar,
+#splitStatus::-webkit-scrollbar,
+#statusTwoFiles::-webkit-scrollbar {
+  width: 6px;
+}
+
+.status::-webkit-scrollbar-track,
+#splitStatus::-webkit-scrollbar-track,
+#statusTwoFiles::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.status::-webkit-scrollbar-thumb,
+#splitStatus::-webkit-scrollbar-thumb,
+#statusTwoFiles::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.status::-webkit-scrollbar-thumb:hover,
+#splitStatus::-webkit-scrollbar-thumb:hover,
+#statusTwoFiles::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
 .success {
   background: #d4edda;
-  color: #155724;
   border: 1px solid #c3e6cb;
 }
 
@@ -378,48 +866,364 @@ hr {
   }
 }
 
-/* Разделение файла по количеству кодов */
+
+
+
+
+
+
+
+
 .split-file-section {
-  margin-top: 15px; /* уменьшен отступ */
-  padding: 12px; /* уменьшены отступы */
+  margin-top: 15px;    /* отступ сверху */
+  margin-bottom: 15px; /* отступ снизу */
+  padding: 8px;
   background-color: #f9f9f9;
   border-radius: 5px;
   border: 2px solid black;
 }
 
+/* Страна для реализации товара */
+.split-country-section {
+  margin-top: 15px; /* уменьшен отступ */
+  padding: 12px; /* уменьшены отступы */
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 2px solid black;
+  max-height: 75px;
+}
+
+/* Сортировка общего количества товара */
+.split-sorting-section {
+  margin: 15px 0;    /* внешние отступы: 15 px сверху и снизу */
+  padding: 16px 8px; /* внутренние отступы: 16 px верх/низ, 8 px лево/право */
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+
+
+
+
+/* Для замылевания изображения  customization.html*/
+.blurred-image {
+  filter: blur(8px);
+  transition: filter 0.4s ease;
+  cursor: pointer; /* Меняем курсор на указатель при наведении */
+  user-select: none; /* Запрещаем выделение изображения */
+}
+/* Для замылевания изображения customization.html*/
+.blurred-image.visible {
+  filter: blur(0);
+}
+/* Зазор помиж изображений customization.html*/
+.blurred-image + .blurred-image {
+  margin-left: 30px;
+}
+/* Для замылевания изображения customization.html*/
+.show-image-btn {
+  display: block;
+  margin: 10px auto;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+/* Для замылевания изображения customization.html*/
+.show-image-btn:hover {
+  background-color: #0056b3;
+}
+/* Для расположения изображения с левой стороны а текста с правой customization.html */
+.item-container {
+  display: flex;
+  align-items: flex-start; /* Выравнивание по верху */
+  gap: 20px; /* Отступ между изображением и текстом */
+}
+/* Для расположения изображения с левой стороны а текста с правой customization.html */
+.image-wrapper {
+  flex-shrink: 0; /* Запрещаем сжимать изображение */
+}
+/* Для расположения изображения с левой стороны а текста с правой customization.html */
+.text-content {
+  flex: 1; /* Занимает оставшееся пространство */
+}
+
+
+
+
+
+
+
+/* Сумма сортировки общего количество товара */
+.file-sorting-info {
+  margin: 8px auto;
+  padding: 0px 0px; /* Вертикальные 10 px, горизонтальные 15 px */
+  background-color: #d3d3d3;
+  border-left: 1px solid #2196F3;
+  border-top: 1px solid #2196F3;
+  border-right: 1px solid #2196F3;
+  border-bottom: 1px solid #2196F3;
+  font-size: 0.9em;
+  color: #333;
+  line-height: 1.4em; /* Высота строки */
+  text-align: center; /* Выравнивание текста по центру */
+  overflow-x: auto;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  height: calc(1.4em * 1.2); /* Фиксированная высота на 2 строки */
+  max-height: calc(1.4em * 1.2); /* Максимальная высота на 3 строки */
+  overflow: hidden; /* Скрываем лишнее содержимое */
+  box-sizing: border-box; /* Учитываем padding и border в размерах */
+}
+
+/* Разделение файла по количеству кодов - отображает загружаемый 
 .file-info {
-  margin: 8px 0; /* уменьшен отступ */
-  padding: 6px 10px; /* уменьшены отступы */
-  background-color: #96c4a0;
+  margin: 8px auto;
+  padding: 0px 10px;
+  background-color: #d3d3d3;
   border-left: 4px solid #2196F3;
   font-size: 0.9em;
   color: #333;
+  line-height: 1.4em;
+  height: calc(1.4em + 60px);
+  overflow: hidden;
+  width: 390px;  Фиксированная ширина 
+}*/
+
+/* Разделение файла по количеству кодов - отображает загружаемый */
+.file-info {
+  margin: 8px auto;;
+  padding: 0px 0px;
+  background-color: #d3d3d3;
+  border-left: 1px solid #2196F3;
+  border-top: 1px solid #2196F3;
+  border-right: 1px solid #2196F3;
+  border-bottom: 1px solid #2196F3;
+  font-size: 0.9em;
+  text-align: center; /* Выравнивание текста по центру */
+  color: #333;
+  line-height: 1.4em;
+  overflow: hidden;
+  height: calc(1.4em * 1.2); /* Фиксированная высота на 2 строки */
+  max-height: calc(1.4em * 1.2); /* Максимальная высота на 3 строки */
+  max-width: 395px;
+
+  overflow-x: auto; /* Горизонтальная прокрутка при необходимости */
+
+  /* Ключевые свойства для переноса */
+  word-wrap: break-word;    /* Перенос длинных слов */
+  word-break: break-all;   /* Принудительный перенос в длинных словах */
+  white-space: normal;      /* Разрешает перенос по словам */
 }
 
-.split-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 8px 16px; /* уменьшены отступы */
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+
+
+
+
+
+
+
+
+
+.count-info {
+  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 10px 0;
+  text-align: center;
 }
 
-/* Клас указан в выборе страны для реализации товара */
+.count-info span:first-child {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#missing-count {
+  color: #e74c3c; /* Красный для числа */
+  font-size: 1.2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Текстовое поле — по центру, занимает максимум доступное место */
+#output {
+    background-color: #d3d3d3; /* Серый фон (как на макете) */
+    border: 1px solid #ccc;    /* Граница, если нужна */
+    width: 100%; /* 56ch символов моноширинного шрифта */
+    padding: 10px;             /* Отступы внутри поля */
+    resize: none;          /* Можно растягивать только по высоте */
+    font-family: monospace;    /* Для читаемости кодов */
+    overflow-y: auto;          /* Полоса прокрутки при переполнении */
+    color: #000;               /* Цвет текста */
+  /* Фиксированная высота — блок не будет растягиваться */
+  height: calc(1.4em * 6); /* Фиксированная высота на 5 строк */
+  /* Прокрутка: вертикальная и горизонтальная при переполнении */
+  overflow-x: auto;  /* Горизонтальная прокрутка для очень длинных строк */
+  /* Перенос текста */
+  word-wrap: break-word;    /* Перенос длинных слов */
+  word-break: break-all;     /* Принудительный перенос в длинных словах */
+  white-space: normal;        /* Разрешает перенос по словам */
+  /* Дополнительные ограничения */
+  max-width: 100%;         /* Не шире контейнера */
+  box-sizing: border-box; /* Учитываем padding и border в общей ширине/высоте */
+  /* Плавность прокрутки (опционально) */
+  scroll-behavior: smooth;
+  /* Поддержка скроллбара в Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #2196F3 #f1f1f1;
+  display: block;
+  border-left: 1px solid #2196F3;
+  border-top: 1px solid #2196F3;
+  border-right: 1px solid #2196F3;
+  border-bottom: 1px solid #2196F3;
+  margin: 15px auto; /* отступ сверху/снизу и центрирование */
+}
+#output:focus {
+  outline: none;           /* Убирает синюю рамку фокуса (работает во всех браузерах) */
+  box-shadow: none;        /* Убирает тень, если браузер её добавляет */
+}
+
+/* Стили для WebKit-браузеров (Chrome, Edge, Safari) */
+.output::-webkit-scrollbar {
+  width: 12px;
+}
+
+.output::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+.output::-webkit-scrollbar-thumb {
+  background: #2196F3;
+  border-radius: 6px;
+  border: 2px solid #f1f1f1;
+}
+
+.output::-webkit-scrollbar-thumb:hover {
+  background: #1976D2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Поле для результата поиска товара */
+.results-info {
+  margin: 8px auto;
+  padding: 5px;
+  background-color: #d3d3d3;
+  border-left: 1px solid #2196F3;
+  border-top: 1px solid #2196F3;
+  border-right: 1px solid #2196F3;
+  border-bottom: 1px solid #2196F3;
+  font-size: 0.9em;
+  color: #333;
+  line-height: 1.4em;
+
+  /* Фиксированная высота — блок не будет растягиваться */
+  height: calc(1.4em * 6); /* Фиксированная высота на 5 строк */
+
+  /* Прокрутка: вертикальная и горизонтальная при переполнении */
+  overflow-y: auto; /* Вертикальная прокрутка, если строк больше 5 */
+  overflow-x: auto;  /* Горизонтальная прокрутка для очень длинных строк */
+
+  /* Перенос текста */
+  word-wrap: break-word;    /* Перенос длинных слов */
+  word-break: break-all;     /* Принудительный перенос в длинных словах */
+  white-space: normal;        /* Разрешает перенос по словам */
+
+  /* Дополнительные ограничения */
+  max-width: 395px;         /* Не шире контейнера */
+  box-sizing: border-box; /* Учитываем padding и border в общей ширине/высоте */
+
+  /* Плавность прокрутки (опционально) */
+  scroll-behavior: smooth;
+
+  /* Поддержка скроллбара в Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #2196F3 #f1f1f1;
+}
+
+/* Стили для WebKit-браузеров (Chrome, Edge, Safari) */
+.results-info::-webkit-scrollbar {
+  width: 12px;
+}
+
+.results-info::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+.results-info::-webkit-scrollbar-thumb {
+  background: #2196F3;
+  border-radius: 6px;
+  border: 2px solid #f1f1f1;
+}
+
+.results-info::-webkit-scrollbar-thumb:hover {
+  background: #1976D2;
+}
+
+
+
+/* Клас указан названия в правой стороне */
 .custom-font {
   font-family: 'Segoe UI', Arial, sans-serif;
   font-size: 18px;
+  color: #3e4e18;/* Цвет текста над полями */
+  padding: 0px 0px; /* Уменьшены отступы */
+  margin: 8px;
+  min-height: 10px;
+  text-align: center;
+  font-weight: bolder;
+
+  margin-top: -2px;    /* отступ сверху */
+  margin-bottom: 4px;  /* отступ снизу */
+  margin-left: 8px;   /* отступ слева */
+  margin-right: 8px;  /* отступ справа */
+}
+
+/* Клас указан в выборе страны для реализации товара */
+.custom-font-stran  {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 17px;
   color: #3e4e18;/* Цвет текста над полями */
   padding: 0px 0px; /* Уменьшены отступы */
   margin: -8px;
   min-height: 0vh;
   text-align: center;
   font-weight: bolder;
-}
-
-.split-button:hover {
-  background-color: #45a049;
 }
 
 /* Видео фон — без изменений */
@@ -459,21 +1263,6 @@ hr {
   body { background: #000 url('images/fallback.jpg') no-repeat center center / cover; }
 }
 
-.button-group {
-    display: flex;
-    gap: 10px; /* Расстояние между кнопками */
-    justify-content: flex-start; /* Выравнивание влево */
-}
-
-.clear-buttons {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px; /* Расстояние между кнопками */
-    justify-content: flex-start; /* Выравнивание влево */
-    padding: 6px 10px; /* уменьшены отступы */
-    margin: 0px 0; /* уменьшен отступ */
-    margin-top: 0px; /* уменьшен отступ */
-}
 /* Для РБ РФ */
 .region-checkboxes {
   display: flex;
@@ -490,10 +1279,6 @@ hr {
   gap: 8px; /* Отступ между чекбоксом и текстом */
   white-space: nowrap; /* Запрещаем перенос текста */
 }
-
-
-
-
 
 /* Для РБ РФ */
 .region-checkboxes {
@@ -518,6 +1303,857 @@ hr {
 .region-checkboxes label:hover {
   background-color: #f5f5f5;
 }
+
+/* Для вывода информации о сортировки общего количество товара - отключено*/
+.hidden {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Текстовое поле — по центру, занимает максимум доступное место */
+#output {
+    background-color: #d3d3d3; /* Серый фон (как на макете) */
+    border: 1px solid #ccc;    /* Граница, если нужна */
+    width: 100%; /* 56ch символов моноширинного шрифта */
+    padding: 10px;             /* Отступы внутри поля */
+    resize: none;          /* Можно растягивать только по высоте */
+    font-family: monospace;    /* Для читаемости кодов */
+    overflow-y: auto;          /* Полоса прокрутки при переполнении */
+    color: #000;               /* Цвет текста */
+  /* Фиксированная высота — блок не будет растягиваться */
+  height: calc(1.4em * 6); /* Фиксированная высота на 5 строк */
+  /* Прокрутка: вертикальная и горизонтальная при переполнении */
+  overflow-x: auto;  /* Горизонтальная прокрутка для очень длинных строк */
+  /* Перенос текста */
+  word-wrap: break-word;    /* Перенос длинных слов */
+  word-break: break-all;     /* Принудительный перенос в длинных словах */
+  white-space: normal;        /* Разрешает перенос по словам */
+  /* Дополнительные ограничения */
+  max-width: 100%;         /* Не шире контейнера */
+  box-sizing: border-box; /* Учитываем padding и border в общей ширине/высоте */
+  /* Плавность прокрутки (опционально) */
+  scroll-behavior: smooth;
+  /* Поддержка скроллбара в Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #2196F3 #f1f1f1;
+  display: block;
+  border-left: 1px solid #2196F3;
+  border-top: 1px solid #2196F3;
+  border-right: 1px solid #2196F3;
+  border-bottom: 1px solid #2196F3;
+  margin: 15px auto; /* отступ сверху/снизу и центрирование */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Начало Стили для текстового поля Сортировка GTIN приёмки с БСО */
+#sorting-output {
+    background-color: #d3d3d3; /* Серый фон (как на макете) */
+    border: 1px solid #ccc;    /* Граница, если нужна */
+    width: 100%; /* 56ch символов моноширинного шрифта */
+    padding: 10px;             /* Отступы внутри поля */
+    resize: none;          /* Можно растягивать только по высоте */
+    font-family: monospace;    /* Для читаемости кодов */
+    overflow-y: auto;          /* Полоса прокрутки при переполнении */
+    color: #000;               /* Цвет текста */
+  /* Фиксированная высота — блок не будет растягиваться */
+  height: calc(1.4em * 6); /* Фиксированная высота на 5 строк */
+  /* Прокрутка: вертикальная и горизонтальная при переполнении */
+  overflow-x: auto;  /* Горизонтальная прокрутка для очень длинных строк */
+  /* Перенос текста */
+  word-wrap: break-word;    /* Перенос длинных слов */
+  word-break: break-all;     /* Принудительный перенос в длинных словах */
+  white-space: normal;        /* Разрешает перенос по словам */
+  /* Дополнительные ограничения */
+  max-width: 100%;         /* Не шире контейнера */
+  box-sizing: border-box; /* Учитываем padding и border в общей ширине/высоте */
+  /* Плавность прокрутки (опционально) */
+  scroll-behavior: smooth;
+  /* Поддержка скроллбара в Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #2196F3 #f1f1f1;
+  display: block;
+  border-left: 1px solid #2196F3;
+  border-top: 1px solid #2196F3;
+  border-right: 1px solid #2196F3;
+  border-bottom: 1px solid #2196F3;
+  margin: 15px auto; /* отступ сверху/снизу и центрирование */
+}
+
+#sorting-output:focus {
+  outline: none;           /* Убирает синюю рамку фокуса (работает во всех браузерах) */
+  box-shadow: none;        /* Убирает тень, если браузер её добавляет */
+}
+
+/* Стили для WebKit-браузеров (Chrome, Edge, Safari) */
+.sorting-output::-webkit-scrollbar {
+  width: 12px;
+}
+
+.sorting-output::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+.sorting-output::-webkit-scrollbar-thumb {
+  background: #2196F3;
+  border-radius: 6px;
+  border: 2px solid #f1f1f1;
+}
+
+.sorting-output::-webkit-scrollbar-thumb:hover {
+  background: #1976D2;
+}
+
+/* Стили для счётчика групп кодов */
+#groups-count {
+    color: #e74c3c; /* Красный для числа */
+    font-size: 1.2em;
+}
+
+/* Стили для статуса */
+#status {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    display: none; /* Скрываем по умолчанию */
+}
+
+#status.error {
+    background-color: #ffe6e6;
+    color: #cc0000;
+    border: 1px solid #cc0000;
+}
+
+#status.success {
+    background-color: #e6ffe6;
+    color: #006600;
+    border: 1px solid #006600;
+}
+/* Конец Стили для текстового поля Сортировка GTIN приёмки с БСО */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.page2 body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 15px; /* уменьшен отступ */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  
+  margin-bottom: 80px; /* Отступ для footer */
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.page2 .container {
+  
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  flex: 1 0 auto;
+  background: transparent;
+  overflow: hidden;
+  border: none;
+  border-radius: 15px;
+  max-width: 1100px; /* КОНТЕЙНЕР для кнопок - ширина */
+  margin-bottom: 80px; /* Дополнительный отступ для контейнера */
+  flex: 1 0 auto;
+}
+
+.page2 .contacts {
+  flex: 1;
+  min-width: 1100px;
+  width: 100%;
+}
+
+.page2 .map {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Контейнер для таблицы — двойная рамка с одинаковыми радиусами */
+.page2 .table-wrapper {
+  border-radius: 12px; /* Единый радиус для всего контейнера */
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 2px solid white; /* Внешний белый контур */
+  padding: 4px; /* Создаём место для внутренней красной рамки */
+  margin-top: auto; /* Сдвигаем вниз */
+  text-align: center; /* Центрируем */
+}
+
+.page2 table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 0;
+  border: 4px solid #ff4444; /* Внутренняя красная рамка */
+  border-radius: 15px; /* Радиус скругления таблицы (должен быть меньше, чем у контейнера) */
+}
+
+/* Явное задание ширины для колонок таблицы */
+.page2 th:nth-child(1) { width: 4%; } /* № */
+.page2 th:nth-child(2) { width: 35%; } /* Должность */
+.page2 th:nth-child(3) { width: 30%; } /* ФИО — самая широкая колонка */
+.page2 th:nth-child(4) { width: 10%; } /* Email */
+.page2 th:nth-child(5) { width: 17%; } /* № Телефона */
+
+/* Выделение шапки таблицы границами сверху и снизу */
+.page2 thead {
+  border-top: 2px solid #ff4444; /* Верхняя граница шапки */
+  border-bottom: 2px solid #ff4444; /* Нижняя граница шапки */
+}
+
+.page2 thead th {
+  border: none;
+  padding: 14px 25px;
+  text-align: center;
+  background: linear-gradient(135deg, #944300, #7a08a7);
+  color: white; /* Белый текст в шапке для лучшей читаемости */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  /* Добавляем границы внутри шапки */
+  border-top: 1px solid rgb(255, 0, 0); /* Лёгкая верхняя граница внутри */
+  border-bottom: 1px solid rgba(255, 0, 0); /* Более заметная нижняя граница внутри */
+  border-right: 1px solid rgba(255, 0, 0); /* Более заметная нижняя граница внутри */
+}
+
+/* Закругление углов шапки с учётом двойной рамки */
+.page2 thead th:first-child {
+  border-radius: 8px 0 0 0; /* Корректируем радиус под внутреннюю таблицу */
+}
+
+.page2 thead th:last-child {
+  border-radius: 0 8px 0 0; /* Корректируем радиус под внутреннюю таблицу */
+}
+
+.page2 tbody td {
+  border-right: 1px solid rgba(255, 0, 0);
+  border-bottom: 1px solid rgba(255, 0, 0);
+  padding: 12px 25px;
+  text-align: left;
+  color: #f8f9fa; /* Светлый текст (почти белый) для хорошей читаемости */
+  background-color: #444444; /* Единый тёмно‑серый фон для всех строк */
+  transition: background-color 1s ease; /* Плавный переход только для фона */
+  border-bottom: 1px solid rgba(255, 0, 0); /* Более заметная нижняя граница внутри */
+}
+
+/* Убираем правую границу у последней ячейки в строке */
+.page2 tbody tr td:last-child {
+  border-right: none;
+}
+
+/* Закругление нижнего левого угла тела таблицы */
+.page2 tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 12px;
+}
+
+/* Закругление нижнего правого угла тела таблицы */
+.page2 tbody tr:last-child td:last-child {
+  border-radius: 0 0 12px 0;
+}
+
+/* Эффект при наведении на строки с данными — меняется только цвет, без движений */
+.page2 tbody tr:hover td {
+  background-color: #5a5a5a; /* Чуть более светлый серый при наведении */
+  color: #ffffff; /* Белый цвет текста при наведении — чёткая читаемость */
+
+}
+
+.page2 h1, .page2 h2 {
+  color: #00ff73;
+  margin-top: 0;
+  text-align: center;
+}
+
+/* Стили для ячеек email — подчёркиваем интерактивность */
+.page2 td[data-label="Email"] {
+  position: relative;
+  cursor: pointer; /* Курсор-указатель показывает, что ячейку можно кликнуть */
+}
+
+/* Подсказка при наведении */
+.page2 td[data-label="Email"]:hover::after {
+  content: "Нажмите для копирования";
+  position: absolute;
+  top: -30px;
+  left: 15px;
+  background: #003c77;
+  color: rgb(80, 233, 233);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  /* display: none;  Скрываем подсказку */
+}
+
+/* Адаптивность: для экранов меньше 768 px делаем таблицу вертикальной */
+@media (max-width: 768px) {
+  .page2 .container {
+    padding: 10px;
+    gap: 20px;
+  }
+
+  .page2 .contacts {
+    min-width: 100%;
+  }
+
+  /* Стили для контейнера таблицы на мобильных */
+  .page2 .table-wrapper {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(255, 1, 1, 0.1);
+    border: 3px solid #ff4444; /* Красная окантовка для мобильных */
+    margin-top: 20px; /* Отступ сверху для мобильных */
+  }
+
+  /* Преобразуем таблицу в вертикальный список */
+  .page2 table,
+  .page2 thead,
+  .page2 tbody,
+  .page2 tr,
+  .page2 th,
+  .page2 td {
+    display: block;
+  }
+
+  /* Скрываем заголовки колонок */
+  .page2 thead th {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  /* Стили для строк таблицы */
+  .page2 tbody tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  /* Стили для ячеек на мобильных */
+    .page2 tbody td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+    color: #ffffff; /* Белый текст для лучшей читаемости на мобильных */
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Выводим названия колонок перед содержимым через псевдоэлемент */
+  .page2 tbody td:before {
+    content: attr(data-label) ": ";
+    position: absolute;
+    left: 6px;
+    font-weight: bold;
+    color: #00ff73; /* Зелёный цвет для меток */
+    white-space: nowrap;
+  }
+
+  /* Корректировка заголовка для мобильных устройств */
+  .page2 h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  /* Улучшение читаемости текста в ячейках */
+  .page2 tbody td {
+    padding: 8px 6px 8px 50%; /* Отступы: сверху/снизу и слева (с учётом метки) */
+  }
+}
+
+/* Дополнительные улучшения для десктопной версии (экраны шире 768 px) */
+@media (min-width: 769px) {
+  /* Плавное изменение цвета при наведении для всех ячеек */
+  .page2 tbody tr:hover td {
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Улучшенное отображение заголовков колонок */
+  .page2 th {
+    font-size: 16px;
+  }
+
+  /* Отступы для ячеек на больших экранах */
+  .page2 tbody td {
+    padding: 12px 20px;
+  }
+
+  /* Более плавный эффект наведения */
+  .page2 tbody tr {
+    transition: all 0.2s ease;
+  }
+}
+
+/* Фиксация для возможных проблем с overflow */
+.page2 .table-wrapper {
+  overflow-x: auto; /* Горизонтальная прокрутка при необходимости */
+  -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+}
+
+/* Улучшение доступности: фокус для интерактивных элементов */
+.page2 td[data-label="Email"]:focus {
+  outline: 2px solid #00ff73;
+  outline-offset: 2px;
+}
+
+/* Оптимизация для печати */
+@media print {
+  .page2 body {
+    background: white;
+    color: black;
+    padding: 10px;
+  }
+
+  .page2 .table-wrapper {
+    box-shadow: none;
+    border: 1px solid black;
+    outline: none;
+    background-color: white;
+  }
+
+  .page2 table {
+    border: 1px solid black;
+  }
+
+  .page2 thead {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+
+  .page2 thead th {
+    background: transparent;
+    color: black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+
+  .page2 tbody td {
+    background-color: white;
+    color: black;
+    border: 1px solid #ddd;
+  }
+
+  .page2 tbody tr:hover td {
+    background-color: transparent !important;
+    color: black !important;
+  }
+
+  .page2 h1, .page2 h2 {
+    color: black;
+  }
+
+  .page2 footer {
+    color: black;
+  }
+}
+
+/* Резервные стили для старых браузеров */
+@supports not (backdrop-filter: blur(5px)) {
+  .page2 footer {
+    backdrop-filter: none;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Стили для отдельных кнопок */
+.button-group button {
+  flex: 1 1 180px; /* Гибкость: может расти/сжиматься, базовая ширина 180 px */
+  min-width: 160px; /* Минимальная ширина кнопки */
+  max-width: 220px; /* Максимальная ширина кнопки */
+  background-color: #3f9c09;
+  color: white;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid black;
+  transition: all 0.3s ease;
+  text-align: center;
+  white-space: nowrap; /* Запрещаем перенос текста */
+}
+
+/* Эффект при наведении */
+.button-group button:hover {
+  background-color: #2e7a07;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Эффект нажатия */
+.button-group button.pressed {
+  transform: scale(0.92) translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .button-group {
+    flex-direction: column; /* Вертикальное расположение на мобильных */
+    align-items: center; /* Центрирование кнопок */
+  }
+  
+  .button-group button {
+    width: 90%; /* Почти полная ширина экрана */
+    max-width: none; /* Снимаем ограничение максимальной ширины */
+    margin: 5px auto; /* Отступы сверху/снизу */
+  }
+}
+
+/* Дополнительная адаптация для очень узких экранов */
+@media (max-width: 480px) {
+  .button-group button {
+    font-size: 0.85rem; /* Уменьшаем шрифт */
+    padding: 12px 10px; /* Уменьшаем отступы */
+  }
+}
+
+
+
+
+
+
+
+
+
+/* Добавил для возможности просмотра на телефоне - удалить если не работает                                                */
+
+
+/* Базовая адаптация для мобильных устройств */
+@media (max-width: 768px) {
+  body {
+    padding: 10px; /* Уменьшаем отступы по краям */
+    font-size: 0.9rem; /* Немного уменьшаем базовый размер шрифта */
+  }
+
+  .container {
+    border-radius: 15px; /* Слегка уменьшаем скругление углов */
+    margin: 0 5px; /* Отступы по бокам для предотвращения прилипания к краям */
+  }
+
+  /* Адаптация основного контента: делаем вертикальное расположение секций */
+  .main-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .left-section,
+  .right-inputs,
+  .file-section {
+    min-width: 100%;
+    padding: 8px; /* Уменьшаем внутренние отступы */
+  }
+
+  /* Уменьшаем высоту текстового поля для ввода данных */
+  #dataInput {
+    height: 200px; /* Оптимальная высота для мобильных */
+    font-size: 14px; /* Корректируем размер шрифта для лучшей читаемости */
+  }
+
+  #searchInput {
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+
+  /* Адаптация таблиц: преобразуем в вертикальный формат */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Плавная прокрутка на iOS */
+  }
+
+  thead {
+    display: none; /* Скрываем шапку таблицы в мобильной версии */
+  }
+
+  tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  /* Добавляем метки перед значениями в ячейках */
+  td:before {
+    content: attr(data-label) ": ";
+    font-weight: bold;
+    color: #667eea;
+    min-width: 40%;
+  }
+}
+
+/* Дополнительная адаптация для очень узких экранов (смартфоны в портретной ориентации) */
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+    font-size: 0.85rem;
+  }
+
+  .container {
+    margin: 0 2px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .button-group button {
+    width: 95%;
+    max-width: none;
+    padding: 12px 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Ещё уменьшаем высоту поля ввода для компактных экранов */
+  #dataInput {
+    height: 150px;
+    font-size: 13px;
+  }
+
+  /* Оптимизируем отступы в карточках информации */
+  .info-card {
+    padding: 10px;
+  }
+
+  .info-card h3 {
+    font-size: 1.1rem;
+    padding-bottom: 4px;
+  }
+
+  /* Корректировка футера для очень маленьких экранов */
+  footer {
+    padding: 0.75rem 0.5rem;
+  }
+
+  footer a {
+    font-size: 0.85rem;
+    margin: 0.15rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+/* Адаптация для ландшафтной ориентации мобильных устройств */
+@media (min-width: 481px) and (max-width: 768px) and (orientation: landscape) {
+  .main-content {
+    flex-direction: row; /* Возвращаем горизонтальное расположение */
+  }
+
+  .left-section,
+  .right-inputs,
+  .file-section {
+    min-width: auto;
+    flex: 1;
+  }
+
+  #dataInput {
+    height: 180px; /* Умеренная высота в ландшафтном режиме */
+  }
+}
+
+/* Оптимизация шрифтов для лучшей читаемости на мобильных */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem; /* Уменьшаем заголовок */
+  }
+
+  .subtitle {
+    font-size: 24px;
+    margin-top: 2px;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  .custom-font {
+    font-size: 16px;
+    margin: 4px;
+  }
+
+  .custom-font-stran {
+    font-size: 15px;
+    margin: -4px;
+  }
+}
+
+/* Улучшение интерактивных элементов для касания */
+@media (max-width: 768px) {
+  button,
+  .split-button,
+  .clear-button {
+    padding: 14px 16px; /* Увеличиваем область нажатия */
+    min-height: 44px; /* Рекомендуемый размер для элементов касания */
+  }
+
+  input[type="file"] {
+    padding: 12px 8px;
+  }
+
+  /* Увеличение области для подсказок */
+  .tooltip .tooltiptext {
+    width: 150px; /* Немного уменьшаем ширину подсказки */
+    font-size: 0.75rem;
+  }
+}
+
+/* Отключение видеофона на мобильных для экономии трафика */
+@media (max-width: 768px) {
+  .video-background {
+    display: none;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

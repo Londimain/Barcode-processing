@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Ильенков Сергей Михайлович">
+    <meta name="description" content="Инструмент для подготовки к списанию акцизных марок">
+    <meta name="robots" content="index, follow">
+    <title>Списание товара</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <meta property="og:title" content="ИИнструмент для подготовки к списанию акцизных марок">
+    <meta property="og:description" content="Инструмент для подготовки к списанию акцизных марок">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Инструмент для подготовки к списанию акцизных марок">
+    <meta name="twitter:description" content="Инструмент для подготовки к списанию акцизных марок">
+</head>
+<body>
+
+<!-- Звук для скачивания результата (saveResult) -->
+<audio id="downloadSound" preload="auto">
+    <source src="sounds/download.mp3" type="audio/mpeg">
+    <source src="sounds/download.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для поиска марок -->
+<audio id="search_brandSound" preload="auto">
+    <source src="sounds/search_brand.mp3" type="audio/mpeg">
+    <source src="sounds/search_brand.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для полной очистки всех данных на странице  -->
+<audio id="clearLeftSound" preload="auto">
+    <source src="sounds/clear_left.mp3" type="audio/mpeg">
+    <source src="sounds/clear_left.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для обработки кодов в сортировке GTIN приёмки с БСО (processCodes) -->
+<audio id="processing_CodeSound" preload="auto">
+    <source src="sounds/processing_Code.mp3" type="audio/mpeg">
+    <source src="sounds/processing_Code.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для формирования и расчёта диапазона GTIN (calculateMark) -->
+<audio id="formingSound" preload="auto">
+    <source src="sounds/forming.mp3" type="audio/mpeg">
+    <source src="sounds/forming.ogg" type="audio/ogg">
+</audio>
+<!-- Звук для расчёта конечной даты срока годности -->
+<audio id="expiration_DateSound" preload="auto">
+    <source src="sounds/expiration_Date.mp3" type="audio/mpeg">
+    <source src="sounds/expiration_Date.ogg" type="audio/ogg">
+</audio>
+
+<div class="container">
+    <br><p class="rainbow-text">Подготовка к списанию акцизных марок</p>
+
+<div class="main-content">
+
+<!-- Левая секция -->
+<div class="left-section">
+    
+<!-- Поиск недостающих марок -->
+<div class="split-file-section">
+  <p class="custom-font">Поиск недостающих марок</p>
+  <div class="file-input-group">
+    <!-- Источник: теперь можно выбрать папку с TXT-файлами -->
+    <input type="file" id="source-file" class="input-field" webkitdirectory directory multiple accept=".txt">
+  </div>
+  <div class="file-input-group">
+    <!-- Вычитаемые: папка с файлами -->
+    <input type="file" id="subtract-folder" class="input-field" webkitdirectory directory multiple>
+  </div>
+  <textarea id="output" placeholder="Здесь отобразится результат после обработки..." disabled></textarea>
+  <div class="count-info">
+    <span style="font-weight: bold;">Найдено:</span>
+    <span id="missing-count">0</span> недостающих марок
+  </div>
+  <div class="button-group">
+    <button id="processBTN" class="split-button">Поиск марок</button>
+    <button onclick="handleSaveClick()" id="saveBTN">Скачать результат</button>
+  </div>
+</div>
+
+<div class="split-file-section">
+    <p class="custom-font">Сортировка GTIN приёмки с БСО</p>
+
+    <!-- Один файл -->
+    <div class="file-input-group">
+        <!-- id должен быть именно fileInputSingle -->
+        <input type="file" id="fileInputSingle" accept=".txt">
+    </div>
+
+    <center>
+        <div class="or-separator">ИЛИ</div>
+    </center>
+
+    <!-- Папка -->
+    <div class="file-input-group">
+        <!-- id должен быть именно fileInputDir -->
+        <input type="file" id="fileInputDir" class="input-field" webkitdirectory directory multiple>
+    </div>
+
+    <div id="status"></div>
+    <textarea id="sorting-output" placeholder="Результат..." disabled></textarea>
+
+    <div class="count-info">
+        <span style="font-weight: bold;">Найдено:</span>
+        <span id="groups-count">0</span> групп кодов
+    </div>
+
+    <div id="results"></div>
+
+    <div class="button-group">
+        <!-- БЕЗ onclick="..." -->
+        <button id="processCodesBtn">Обработать коды</button>
+    </div>
+</div>
+
+
+</div>
+
+<!-- Центральная секция -->
+<div class="right-inputs">
+<br><br><br><br>
+<!-- Поле: Включить звуковое оповещение при новой партии -->
+<div class="input-group">
+    <label><input type="checkbox" id="soundNotification" class="checkbox">Включить звуковое оповещение</label>
+</div>
+<br><br><br><br><br><br><br><br><br>
+<!-- Полная очистка всех данных на странице -->
+    <button type="button" onclick="clearAlls()" class="clear-button">Очистить</button>
+</div>
+
+<!-- Правая секция  -->
+<div class="file-section">
+
+<!-- Формирование и расчёт диапазона GTIN -->
+<div class="split-file-section">
+    <p class="custom-font">Формирование и расчёт диапазона GTIN</p>
+    <div class="file-input-group">
+        <input type="file" id="mark-file" class="input-field" accept=".txt">
+    </div>
+    <div class="input-group">
+        <label for="start-mark">Начальная марка:</label>
+        <input type="text" id="start-mark" class="input-field" placeholder="Введите полный номер, например: QAA1080XXXXXX" maxlength="20">
+    </div>
+    <div class="input-group">
+        <label for="end-mark">Конечная марка:</label>
+        <input type="text" id="end-mark" class="input-field" placeholder="Введите полный номер, например: QAA1080XXXXXX" maxlength="20">
+    </div>
+    <div class="input-group">
+        <label for="result">Результат:</label>
+        <input type="text" id="result" class="input-field" readonly>
+    </div>
+    <div class="button-group">
+        <button id="generate-btn" class="split-button">Формировать</button>
+    </div>
+</div>
+
+<!-- Калькулятор дней -->
+<div class="split-file-section">
+    <p class="custom-font">Калькулятор дней</p>
+    <div style="display: flex; align-items: top; justify-content: left;">
+        <label for="start-date">Начальная дата:</label>
+        <input type="date" id="start-date" required style="margin-left: 10px;">
+    </div>
+    <div style="display: flex; align-items: top; justify-content: left;">
+        <div style="margin-top: 20px; margin-bottom: 20px;">
+            <label>Выберете срок годности:</label>
+            <label><input type="checkbox" id="add-360" class="checkbox" name="days" value="360">360</label>
+            <label>/</label>
+            <label><input type="checkbox" id="add-180" class="checkbox" name="days" value="180">180</label>
+            <label>/</label>
+            <label><input type="checkbox" id="add-150" class="checkbox" name="days" value="150">150</label>
+        </div>
+    </div>
+    <div class="button-group">
+    <button id="calculateBtn" onclick="calculateDate()">Рассчитать</button>
+    </div>
+    <div id="resultDays" class="file-info">Здесь отобразится конечная дата срока годности
+    </div>
+</div>
+
+<!-- Удаление марок с файла -->
+<div class="split-file-section">
+    <p class="custom-font">Удаление марок</p>
+<div class="file-input-group">
+    <input type="file" id="fileInput" accept=".txt">
+</div>
+<p id="status"></p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+    <p>© 2026 ОАО «Компания MogNat». Все права защищены.</p>
+    <p>
+        <a class="link-1" href="obrabotka.html">Обработка данных</a> |
+        <a class="link-2" href="opisanie.html">Описание</a> |
+        <a class="link-3" href="contacts.html">Контакты</a> |
+        <a class="link-4" href="customization.html">Настройка сканера</a> |
+        <a class="link-5" href="manual.html">Инструкция</a>
+    </p>
+</footer>
+
+<script>
+// Глобальные переменные (Для блокировки всех кнопок сразу)
+let isButtonDisabled = false;
+const buttonCooldown = 3000; // 3 секунды в миллисекундах
+let countdownInterval = null;
+
+// Поиск элементов один раз при загрузке
+const saveButton = document.getElementById('saveBTN');
+const outputTextarea = document.getElementById('output');
+const soundCheckbox = document.getElementById('soundNotification');
+const statusTwoFilesElement = document.querySelector('.status'); // Предполагаемый селектор
+
+// Глобальные переменные для блокировки кнопки обработки кодов
+let isProcessCodesDisabled = false;
+const processCodesCooldown = 3000; // 3 секунды в миллисекундах
+let processCodesCountdownInterval = null;
+// Переменная для хранения кнопки обработки кодов
+const processCodesButton = document.getElementById('processCodesBtn');
+</script>
+
+<!-- 1. Поиск недостающих марок с загрузкой папки -->
+<script src="js/handleSaveClick.js"></script>
+<!-- 2. Функция для остановки звуков -->
+<script src="js/stopAllSounds.js"></script>
+<!-- 3. Воспроизведение звукового оповещения -->
+<script src="js/sound.js"></script>
+<!-- 4. Сохранение результата -->
+<script src="js/saveBTN.js"></script>
+<!-- Чтобы курсор не ставился в поле ввода, но при этом можно было выделять текст -->
+<script src="js/getElementById.js"></script>
+<!-- 5. Формирование и расчёт диапазона GTIN -->
+<script src="js/calculateMark.js"></script>
+<!-- 6. Сортировка GTIN приёмки с БСО -->
+<script src="js/processCodes.js"></script>
+<!-- 7. Калькулятор дней -->
+<script src="js/calculateDate.js"></script>
+<!-- 8. Удаление марок с файла -->
+<script src="js/DelMarkFiles.js"></script>
+<!-- Функция активации блокировки кнопок -->
+<script src="js/disableButtons.js"></script>
+<!-- Эффект сжимания кнопки при клике на кнопку очистить все поля -->
+<script src="js/button.js"></script>
+<!-- Функция для очистки левого текстового поля -->
+<script src="js/clearPoles.js"></script>
+<!-- Функция для полной очистки всех данных на странице -->
+<script src="js/clearAlls.js"></script>
+</body>
+</html>

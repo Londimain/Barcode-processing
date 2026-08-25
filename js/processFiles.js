@@ -1,11 +1,50 @@
 // Обработка двух файлов
 function processFiles() {
+ // Проверяем, заблокирована ли какая нибудь кнопка - если да, то не запускать
+  if (isButtonDisabled) {
+    console.log('Кнопка заблокирована на 3 секунды');
+    return;
+  }
+
     const file1 = document.getElementById('file1').files[0];
     const file2 = document.getElementById('file2').files[0];
 
     if (file1 && file2) {
+        
         originalFileName1 = file1.name;
         originalFileName2 = file2.name;
+
+  // Устанавливаем флаг блокировки
+  isButtonDisabled = true;
+
+  const textarea = document.getElementById('dataInput');
+  const btn = document.querySelector('button[onclick="processFiles()"]');
+
+  // Время блокировки — 3 секунды (3000 мс)
+  const buttonCooldown = 3000;
+
+  // Визуальная блокировка кнопки
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Подождите... 3 с';
+  }
+
+  let countdown = 3; // Начальное значение отсчёта
+  let countdownInterval; // Переменная для хранения ID интервала
+
+  // Запускаем обратный отсчёт
+  countdownInterval = setInterval(() => {
+    countdown--;
+
+    if (countdown >= 0 && btn) {
+      btn.textContent = `Подождите... ${countdown} с`;
+    }
+
+    // Когда отсчёт дошёл до 0, останавливаем интервал
+    if (countdown === 0) {
+      clearInterval(countdownInterval);
+    }
+  }, 1000); // Обновляем каждую секунду (1000 мс)
 
         const reader1 = new FileReader();
         reader1.onload = function() {
@@ -60,18 +99,23 @@ function processFiles() {
                 // Финальная сборка результата
                 currentResult = processedLines.join('\r\n') + '\r\n';
 
-                // Показываем количество удалённых строк
-                statusTwoFilesElement.textContent = `Обработано: удалено ${deletedLines.length} строк.`;
-                statusTwoFilesElement.className = 'status success';
+                // Вывод статуса во всплывающем окне
+                alert(`Обработано: удалено ${deletedLines.length} строк.`);
 
                 // Звуковое оповещение
+                stopAllSounds();
                 playNotificationSound('process');
 
-
-                setTimeout(() => {
-                    statusTwoFilesElement.textContent = '';
-                    statusTwoFilesElement.className = 'status';
-                }, 5000);
+                    // Разблокируем кнопку и остановим отсчёт через 3 секунды
+  setTimeout(() => {
+    clearInterval(countdownInterval); // Останавливаем отсчёт, если он ещё идёт
+    if (btn && btn.disabled) {
+      btn.disabled = false;
+      btn.textContent = 'Обработать данные'; // Возвращаем исходный текст кнопки
+    }
+    isButtonDisabled = false; // Сбрасываем флаг блокировки
+    console.log('Кнопка разблокирована через 3 секунды');
+  }, buttonCooldown);
             };
 
             reader2.readAsText(file2);
@@ -81,4 +125,5 @@ function processFiles() {
     } else {
         alert('Пожалуйста, выберите оба файла.');
     }
+
 }
